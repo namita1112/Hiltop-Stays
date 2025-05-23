@@ -1,0 +1,14 @@
+# Ignore node_modules from both client and server
+client/node_modules/
+server/node_modules/
+
+# Ignore environment files
+client/.env
+server/.env
+
+# Ignore uploads or build folders (optional)
+server/uploads/
+client/dist/
+
+# Ignore documentation file
+Hiltop_stays_doc.docx
