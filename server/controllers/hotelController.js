@@ -45,7 +45,7 @@ exports.createHotel = async (req, res) => {
       owner: req.body.owner,
       ownerContact: req.body.ownerContact,
       images: imageUrls,
-      rating: req.body.ownerContact,
+      rating: req.body.rating,
     });
 
     await hotel.save();
