@@ -35,7 +35,7 @@ exports.createHotel = async (req, res) => {
       const result = await streamUpload(file.buffer);
       imageUrls.push(result.secure_url);
     }
-
+    console.log(req.body.amenities);
     const hotel = new Hotel({
       hotelName: req.body.hotelName,
       description: req.body.description,
@@ -46,6 +46,8 @@ exports.createHotel = async (req, res) => {
       ownerContact: req.body.ownerContact,
       images: imageUrls,
       rating: req.body.rating,
+      amenities: JSON.parse(req.body.amenities),
+      roomsType: JSON.parse(req.body.roomsType),
     });
 
     await hotel.save();
@@ -89,8 +91,34 @@ exports.getHotels = async (req, res) => {
   res.json(hotels);
 };
 
+exports.getHotelById = async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+    if (!hotel) {
+      return res.status(404).json({ error: 'Hotel not found' });
+    }
+    res.json(hotel);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 exports.updateHotel = async (req, res) => {
   const { id } = req.params;
+  if (req.body.amenities && typeof req.body.amenities === 'string') {
+    try {
+      req.body.amenities = JSON.parse(req.body.amenities);
+    } catch (error) {
+      return res.status(400).json({ error: 'Invalid amenities format' });
+    }
+  }
+  if (req.body.roomsType && typeof req.body.roomsType === 'string') {
+    try {
+      req.body.roomsType = JSON.parse(req.body.roomsType);
+    } catch (error) {
+      return res.status(400).json({ error: 'Invalid roomsType format' });
+    }
+  }
   const updated = await Hotel.findByIdAndUpdate(id, req.body, { new: true });
   res.json(updated);
 };

@@ -10,11 +10,11 @@ import starIconOutlined from './starIconOutlined.svg'
 // import facebookIcon from './facebookIcon.svg'
 // import twitterIcon from './twitterIcon.svg'
 // import linkendinIcon from './linkendinIcon.svg'
-// import freeWifiIcon from './freeWifiIcon.svg'
-// import freeBreakfastIcon from './freeBreakfastIcon.svg'
-// import roomServiceIcon from './roomServiceIcon.svg'
-// import mountainIcon from './mountainIcon.svg'
-// import poolIcon from './poolIcon.svg'
+import freeWifiIcon from './freeWifiIcon.svg'
+import freeBreakfastIcon from './freeBreakfastIcon.svg'
+import roomServiceIcon from './roomServiceIcon.svg'
+import mountainIcon from './mountainIcon.svg'
+import poolIcon from './poolIcon.svg'
 // import homeIcon from './homeIcon.svg'
 import closeIcon from './closeIcon.svg'
 // import locationFilledIcon from './locationFilledIcon.svg'
@@ -52,11 +52,11 @@ export const assets = {
     // facebookIcon,
     // twitterIcon,
     // linkendinIcon,
-    // freeWifiIcon,
-    // freeBreakfastIcon,
-    // roomServiceIcon,
-    // mountainIcon,
-    // poolIcon,
+    freeWifiIcon,
+    freeBreakfastIcon,
+    roomServiceIcon,
+    mountainIcon,
+    poolIcon,
     closeIcon,
     // homeIcon,
     // locationFilledIcon,
@@ -95,14 +95,14 @@ export const testimonials = [
     { id: 3, name: "Sophia Lee", address: "Seoul, South Korea", image: "https://images.unsplash.com/photo-1701615004837-40d8573b6652?q=80&w=200", rating: 5, review: "Amazing service! I always find the best luxury accommodations through QuickStay. Their recommendations never disappoint!" }
 ];
 
-// // Facility Icon
-// export const facilityIcons = {
-//     "Free WiFi": assets.freeWifiIcon,
-//     "Free Breakfast": assets.freeBreakfastIcon,
-//     "Room Service": assets.roomServiceIcon,
-//     "Mountain View": assets.mountainIcon,
-//     "Pool Access": assets.poolIcon,
-// };
+// Facility Icon
+export const facilityIcons = {
+    "Free WiFi": assets.freeWifiIcon,
+    "Free Breakfast": assets.freeBreakfastIcon,
+    "Room Service": assets.roomServiceIcon,
+    "Mountain View": assets.mountainIcon,
+    "Pool Access": assets.poolIcon,
+};
 
 // // For Room Details Page
 // export const roomCommonData = [

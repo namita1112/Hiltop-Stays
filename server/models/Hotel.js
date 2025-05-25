@@ -30,6 +30,12 @@ const hotelSchema = new mongoose.Schema({
     images:{
         type: [String],
     },
+    amenities:{
+        type: [String],
+    },
+    roomsType:{
+        type: [String],
+    },
     rating: {
         type: Number,
     },
