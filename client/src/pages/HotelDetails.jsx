@@ -3,13 +3,16 @@ import { useParams } from 'react-router-dom'
 import axios from "axios";
 import { IoLocationOutline } from "react-icons/io5";
 import StarRating from '../components/StarRating';
-import ImageGalleryModal from '../components/ImageGalleryModal'; 
+import MyModal from '../components/myModal';
+import { facilityIcons } from '../assets/assets';
 
 const HotelDetails = () => {
     const {id} = useParams();
     const [hotel, setHotel] = useState(null);
     const [mainImage, setMainImage] = useState(null);
     const [showModal, setShowModal] = useState(false); 
+    const openModal = () => setShowModal(true);
+    const closeModal = () => setShowModal(false);
 
     useEffect(() => {
         const fetchHotelById = async () => {
@@ -78,17 +81,71 @@ const HotelDetails = () => {
                     </div>
                 )}
             </div>
+         
+
+      
         </div>
 
         {/* Modal */}
-        {showModal && (
-            <ImageGalleryModal
-                images={hotel.images}
-                selectedImage={mainImage}
-                onSelect={(img) => setMainImage(img)}
-                onClose={() => setShowModal(false)}
-            />
-        )}
+        <MyModal images={hotel.images} selectedImage={mainImage}  onSelect={(img) => setMainImage(img)} show={showModal} onClose={closeModal} />          
+
+        {/* Room Highlights */}
+        <div className='flex flex-col md:flex-row md:justify-between mt-8'>
+            <div className='flex flex-col'>
+                <h1 className='text-3xl md:text-4xl font-playfair'>Property Highlights</h1>
+                <div className='flex flex-wrap items-center mt-3 mb-6 gap-4'>
+                    {hotel.amenities.map((item, index) => (
+                        <div key={index} className='flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100'>
+                            <img src={facilityIcons[item]} alt={item} className='w-5 h-5'></img>
+                            <p className='text-xs'>{item}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            {/* hotel price */}
+            {/* <p className='text-2xl font-medium'>₹ 2000/night</p> */}
+            <div>
+                <button className="w-fit px-3 py-1.5 text-sm font-medium border border-gray-300 
+                    rounded hover:bg-gray-200 transition-all cursor-pointer whitespace-nowrap">
+                    Get Callback
+                </button>
+            </div>
+            
+        </div>
+
+        {/* CheckIn CheckOut Form */}
+        <form className='flex flex-col md:flex-row items-start md:items-center justify-between bg-white 
+            shadow-[0px_0px_20px_rgba(0,0,0,0.15)] p-6 rounded-xl mx-auto mt-16 max-w-6xl' >
+            
+            <div className='flex flex-col flex-wrap md:flex-row items-start md:items-center gap-4 md:gap-10 text-gray-500'>
+                
+                <div className='flex flex-col'>
+                    <label htmlFor="checkInDate" className='font-medium'>Check-In</label>
+                    <input type='date' id="checkInDate" placeholder='Check-In' className='w-full rounded border border-gray-300
+                    px-3 py-2 mt-1.5 outline-none' required></input>
+                </div>
+                <div className='w-px h-15 bg-gray-300/70 max-md:hidden'></div>
+                <div className='flex flex-col'>
+                    <label htmlFor="checkOutDate" className='font-medium'>Check-Out</label>
+                    <input type='date' id="checkOutDate" placeholder='Check-Out' className='w-full rounded border border-gray-300
+                    px-3 py-2 mt-1.5 outline-none' required></input>
+                </div>
+                <div className='w-px h-15 bg-gray-300/70 max-md:hidden'></div>        
+                <div className='flex flex-col'>
+                    <label htmlFor="guests" className='font-medium'>Guests</label>
+                    <input type='number' id="guests" placeholder='0' className='max-w-20 rounded border border-gray-300 px-3 py-2 
+                    mt-1.5 outline-none ' required></input>
+                </div>
+
+            </div>
+            <button type="submit" className='bg-primary hover:bg-primary-dull active:scale-95 transition-all
+            text-white rounded-md max-md:w-full max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer'>Check Availability</button>
+        </form>
+
+        {/* Common specifications */}
+
+                
+       
     </div>
   )
 }

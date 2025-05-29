@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 import AllHotels from './pages/AllHotels';
 import HotelDetails from './pages/HotelDetails';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 const App = () => {
   // this is added to get hotel owner path.
   const isOwnerPath = useLocation().pathname.includes("owner");
