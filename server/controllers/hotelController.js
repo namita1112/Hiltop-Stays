@@ -38,6 +38,7 @@ exports.createHotel = async (req, res) => {
     console.log(req.body.amenities);
     const hotel = new Hotel({
       hotelName: req.body.hotelName,
+      title: req.body.title,
       description: req.body.description,
       address: req.body.address,
       contact: req.body.contact,
