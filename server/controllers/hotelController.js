@@ -1,6 +1,7 @@
 const Hotel = require("../models/Hotel");
 const cloudinary = require("../config/cloudinary");
 const multer = require("multer");
+const twilio = require('twilio');
 const fs = require("fs");
 const storage = multer.memoryStorage();
 const streamifier = require("streamifier");
@@ -35,7 +36,7 @@ exports.createHotel = async (req, res) => {
       const result = await streamUpload(file.buffer);
       imageUrls.push(result.secure_url);
     }
-    console.log(req.body.amenities);
+    console.log(req.body);
     const hotel = new Hotel({
       hotelName: req.body.hotelName,
       title: req.body.title,
@@ -129,3 +130,26 @@ exports.deleteHotel = async (req, res) => {
   await Hotel.findByIdAndDelete(id);
   res.json({ message: "Hotel deleted" });
 };
+
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID; 
+const authToken = process.env.TWILIO_AUTH_TOKEN; 
+const client = twilio(accountSid, authToken);
+const adminPhoneNumber = 'whatsapp:+918097809705';
+
+exports.sendMessage = async (req, res) => {
+  const { to, message } = req.body;
+
+  try {
+    const msg = await client.messages.create({
+      body: message,
+      from: 'whatsapp:+14155238886', // Twilio Sandbox WhatsApp number
+      to: `whatsapp:${to}`, // recipient number, e.g. whatsapp:+918779861687
+    });
+
+    res.status(200).json({ sid: msg.sid });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+

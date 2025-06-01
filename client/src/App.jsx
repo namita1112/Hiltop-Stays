@@ -5,8 +5,6 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 import AllHotels from './pages/AllHotels';
 import HotelDetails from './pages/HotelDetails';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Layout from './pages/hotelOwner/Layout';
 import Dashboard from './pages/hotelOwner/Dashboard';
 import AddHotel from './pages/hotelOwner/AddHotel';

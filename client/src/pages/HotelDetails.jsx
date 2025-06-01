@@ -3,8 +3,10 @@ import { useParams } from 'react-router-dom'
 import axios from "axios";
 import { IoLocationOutline } from "react-icons/io5";
 import StarRating from '../components/StarRating';
-import MyModal from '../components/myModal';
+// import MyModal from '../components/myModal';
+
 import { facilityIcons } from '../assets/assets';
+import ImageModal from '../components/ImageModal';
 
 const HotelDetails = () => {
     const {id} = useParams();
@@ -87,7 +89,8 @@ const HotelDetails = () => {
         </div>
 
         {/* Modal */}
-        <MyModal images={hotel.images} selectedImage={mainImage}  onSelect={(img) => setMainImage(img)} show={showModal} onClose={closeModal} />          
+        {<ImageModal images={hotel.images} selectedImage={mainImage}  onSelect={(img) => setMainImage(img)} show={showModal} onClose={closeModal} />}
+        {/* <MyModal images={hotel.images} selectedImage={mainImage}  onSelect={(img) => setMainImage(img)} show={showModal} onClose={closeModal} />           */}
 
         {/* Room Highlights */}
         <div className='flex flex-col md:flex-row md:justify-between mt-8'>

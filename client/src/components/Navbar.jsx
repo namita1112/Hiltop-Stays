@@ -65,7 +65,7 @@ const Navbar = () => {
 
             {/* Desktop Right */}
             <div className="hidden md:flex items-center gap-4">
-                <img src={assets.searchIcon} alt="search" className={`${isScrolled && "invert"} h-7 transition-all duration-500`}></img>
+                {/* <img src={assets.searchIcon} alt="search" className={`${isScrolled && "invert"} h-7 transition-all duration-500`}></img>
                 
                 {user ? 
                     (<UserButton>
@@ -77,7 +77,7 @@ const Navbar = () => {
                     (<button onClick={openSignIn} className="bg-black text-white px-8 py-2.5 rounded-full cursor-pointer ml-4 transition-all duration-500">
                         Login
                     </button>)
-                }
+                } */}
                 
             </div>
 
@@ -118,9 +118,9 @@ const Navbar = () => {
                    Dashboard
                 </button>}
 
-                {!user && <button onClick={openSignIn} className="bg-black text-white px-8 py-2.5 rounded-full cursor-pointer transition-all duration-500">
+                {/* {!user && <button onClick={openSignIn} className="bg-black text-white px-8 py-2.5 rounded-full cursor-pointer transition-all duration-500">
                     Login
-                </button>}
+                </button>} */}
             </div>
         </nav>
         

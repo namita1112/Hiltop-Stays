@@ -4,12 +4,13 @@ import Title from "../../components/Title";
 import Select from 'react-select';
 
 const AddHotel = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [hotelData, setHotelData] = useState({
         hotelName: "",
         title: "",
         description: "",
         address: "",
-        contact: "",
+        contact: "+91-8097809705",
         city: "",
         owner: "",
         ownerContact: "",
@@ -72,8 +73,9 @@ const AddHotel = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setIsLoading(true);
         const formData = new FormData();
+        console.log("formData: ",formData);
         for (const key in hotelData) {
         if (key === "amenities" || key === "roomsType") {
             formData.append(key, JSON.stringify(hotelData[key]));
@@ -92,115 +94,120 @@ const AddHotel = () => {
                 "Content-Type": "multipart/form-data",
                 },
             });
-            alert("Hotel added successfully!");
-            console.log(res.data);
+                alert("Hotel added successfully!");
+                console.log(res.data);
+                window.location.reload();
             } catch (err) {
-            console.error("Error adding hotel:", err);
-            alert("Failed to add hotel.");
+                console.error("Error adding hotel:", err);
+                alert("Failed to add hotel.");
+            }finally {
+                setIsLoading(false); // Hide loader regardless of success/failure
             }
         };
 
     return (
-        <form>
+
+        <form onSubmit={handleSubmit}>
             <Title font="outfit" title="Add Hotel" subTitle="Fill in the details carefully and room details, amenities to enhance the user booking experience"/>
             <div className="w-full flex flex-col sm:gap-4 mt-4">
                 <div className="flex flex-col sm:flex-row sm:gap-4">
                     <div className="flex-1">
                         <label htmlFor="hotelName" className="text-gray-600">Hotel Name</label>
                         <input
-                            className="form-control w-full"
-                            type="text"
-                            id="hotelName"
+                            type="text" 
+                            id="hotelName" 
                             name="hotelName"
-                            placeholder="Hotel Name"
+                            placeholder="Enter Hotel Name"
                             onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
 
                     <div className="flex-1 sm:mt-0">
-                        <label htmlFor="hotelTitle" className="text-gray-600">Hotel Title</label>
+                        <label htmlFor="title" className="text-gray-600">Hotel Title</label>
                         <input
-                            className="form-control w-full"
-                            type="text"
-                            id="hotelTitle"
-                            name="hotelTitle"
-                            placeholder="Hotel Title"
+                            type="text" 
+                            id="title" 
+                            name="title"
+                            placeholder="Enter Hotel Title"
                             onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
                 </div>
                 <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
                     <div className="flex-1">
-                        <label htmlFor="hotelAddress" className="text-gray-600">Hotel Address</label>
+                        <label htmlFor="address" className="text-gray-600">Hotel Address</label>
                         <input
-                            className="form-control w-full"
-                            type="text"
-                            id="hotelAddress"
-                            name="hotelAddress"
-                            placeholder="Hotel Address"
+                            type="text" 
+                            id="address" 
+                            name="address"
+                            placeholder="Enter Hotel Address"
                             onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
 
                     <div className="flex-1 sm:mt-0">
-                        <label htmlFor="hotelContact" className="text-gray-600">Contact</label>
+                        <label htmlFor="contact" className="text-gray-600">Contact</label>
                         <input
-                            className="form-control w-full"
-                            type="text"
-                            id="hotelContact"
-                            name="hotelContact"
-                            placeholder="+91-8097809705"
+                            type="text" 
+                            id="contact" 
+                            name="contact"
+                            readOnly
+                            value={hotelData.contact}
                             onChange={handleChange}
-                        />
-                    </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
-                    <div className="flex-1">
-                        <label htmlFor="hotelOwner" className="text-gray-600">Hotel Owner Name</label>
-                        <input
-                            className="form-control w-full"
-                            type="text"
-                            id="hotelOwner"
-                            name="hotelOwner"
-                            placeholder="Hotel Owner"
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="flex-1 sm:mt-0">
-                        <label htmlFor="hotelOwnerContact" className="text-gray-600">Hotel Owner Contact</label>
-                        <input
-                            className="form-control w-full"
-                            type="text"
-                            id="hotelOwnerContact"
-                            name="hotelOwnerContact"
-                            placeholder="Hotel Owner Contact"
-                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
                     <div className="flex-1">
-                        <label htmlFor="hotelCity" className="text-gray-600">Hotel City</label>
+                        <label htmlFor="owner" className="text-gray-600">Hotel Owner Name</label>
                         <input
-                            className="form-control w-full"
-                            type="text"
-                            id="hotelCity"
-                            name="hotelCity"
-                            placeholder="Eg. Mahabaleshwar"
+                            type="text" 
+                            id="owner" 
+                            name="owner"
+                            placeholder="Enter Hotel Owner Name"
                             onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
+
+                    <div className="flex-1 sm:mt-0">
+                        <label htmlFor="ownerContact" className="text-gray-600">Hotel Owner Contact</label>
+                        <input
+                            type="text" 
+                            id="ownerContact" 
+                            name="ownerContact"
+                            placeholder="Enter Hotel Owner Contact"
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
+                    <div className="flex-1">
+                        <label htmlFor="city" className="text-gray-600">Hotel City</label>
+                        <input
+                            type="text" 
+                            id="city" 
+                            name="city"
+                            placeholder="Enter Hotel City"
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
 
                     
 
                     <div className="flex-1 sm:mt-0">
-                        <label htmlFor="hotelAmenities" className="text-gray-600">Hotel Amenities</label>
+                        <label htmlFor="amenities" className="text-gray-600">Hotel Amenities</label>
                         <Select
                             isMulti
-                            name="hotelAmenities"
+                            name="amenities"
                             options={amenities}
                             className="basic-multi-select"
                             classNamePrefix="select"
@@ -215,17 +222,17 @@ const AddHotel = () => {
 
                 <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
                     <div className="flex-1">
-                        <label htmlFor="hotelRoomTypes" className="text-gray-600">Room Types</label>
+                        <label htmlFor="roomsType" className="text-gray-600">Room Types</label>
                         <Select
                             isMulti
-                            name="hotelRoomTypes"
+                            name="roomsType"
                             options={room_types}
                             className="basic-multi-select"
                             classNamePrefix="select"
                             closeMenuOnSelect={false}
                             onChange={(selected) => {
-                            const selectedValues = selected.map(item => item.value);
-                            setHotelData(prev => ({ ...prev, room_types: selectedValues }));
+                                const selectedValues = selected.map(item => item.value);
+                                setHotelData(prev => ({ ...prev, roomsType: selectedValues })); 
                             }}
                         />
                     </div>
@@ -233,16 +240,27 @@ const AddHotel = () => {
                     
 
                     <div className="flex-1 sm:mt-0">
-                        <label htmlFor="hotelOwnerContact" className="text-gray-600">Hotel Amenities</label>
-                        {/* <MultiSelect value={selectedAmenity} onChange={(e) => setSelectedAmenities(e.value)} options={amenities} optionLabel="name" display="chip" 
-                            placeholder="Select Amenities" className="form-control w-full md:w-40rem" /> */}
+                        <label htmlFor="description" className="text-gray-600">Hotel Description</label>
+                        <textarea
+                            name="description"
+                            id="description"
+                            rows="4"
+                            placeholder="Enter Hotel Description..."
+                            value={hotelData.description}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                        />
+
                     </div>
                 </div>
+
+
+                
                 
             </div>
             {/* Upload area for images */}
-            <label htmlFor="hotelImages" className="text-gray-600 mt-10">Add Hotel Images</label>
-            <input className="form-control" id="hotelImages" type="file" multiple accept="image/*" onChange={handleFileChange} />
+            <label htmlFor="images" className="text-gray-600 mt-10">Add Hotel Images</label>
+            <input className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="images" name="images" type="file" multiple accept="image/*" onChange={handleFileChange} />
 
             <div className="grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap">
                 {images.map((image, index) => (
@@ -251,37 +269,33 @@ const AddHotel = () => {
                         src={URL.createObjectURL(image)}
                         alt={`Preview ${index}`}
                         className="max-h-30 cursor-pointer opacity-80"
-                    />
+                        />
                     </label>
-                    // <div key={index} className="relative w-32 h-32 overflow-hidden border rounded shadow">
-                            
-                    // </div>
                 ))}
             </div>
+
+            <div className="flex justify-end mt-4">
+                {isLoading ? (
+                    <button
+                        type="button"
+                        className="bg-gray-400 text-white py-2 px-4 mb-20 rounded cursor-not-allowed"
+                        disabled
+                    >
+                        Submitting...
+                    </button>
+                ) : (
+                    <button
+                        type="submit"
+                        className="bg-blue-600 text-white py-2 px-4 mb-20 rounded hover:bg-blue-700 transition"
+                    >
+                        Submit
+                    </button>
+                )}
+            </div>
+
+
         </form>
-        // <div className="p-4">
-        //   <h2 className="text-xl font-bold mb-4">Add New Hotel</h2>
-        //   <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
-        //     <input type="text" name="hotelName" placeholder="Hotel Name" onChange={handleChange} />
-        //     <input type="text" name="title" placeholder="Title" onChange={handleChange} />
-        //     <textarea name="description" placeholder="Description" onChange={handleChange} />
-        //     <input type="text" name="address" placeholder="Address" onChange={handleChange} />
-        //     <input type="text" name="contact" placeholder="Hotel Contact" onChange={handleChange} />
-        //     <input type="text" name="city" placeholder="City" onChange={handleChange} />
-        //     <input type="text" name="owner" placeholder="Owner Name" onChange={handleChange} />
-        //     <input type="text" name="ownerContact" placeholder="Owner Contact" onChange={handleChange} />
-        //     <input type="number" name="rating" placeholder="Rating (1-5)" onChange={handleChange} />
-
-        //     <input type="file" multiple accept="image/*" onChange={handleFileChange} />
-
-        //     {/* Example Static Amenity & RoomType Entry for Testing */}
-        //     <button type="button" onClick={() => handleAddAmenity("Free WiFi")}>Add Amenity: Free WiFi</button>
-        //     <button type="button" onClick={() => handleAddRoomType({ type: "Deluxe", price: 2000 })}>Add Room: Deluxe</button>
-
-        //     <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">Submit</button>
-        //   </form>
-        // </div>
+        
     );
 };
 

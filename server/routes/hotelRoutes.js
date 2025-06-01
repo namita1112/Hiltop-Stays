@@ -12,4 +12,6 @@ router.get('/hotels/:id', hotelController.getHotelById);
 router.put("/hotels/:id",upload.array("images"), hotelController.updateHotel);
 router.delete("/hotels/:id", hotelController.deleteHotel);
 
+router.post('/send-message', hotelController.sendMessage);
+
 module.exports = router;

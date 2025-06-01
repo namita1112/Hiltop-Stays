@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import StarRating from '../components/StarRating';
 import { IoLocationOutline } from "react-icons/io5";
 import { facilityIcons } from '../assets/assets';
+import GetUserInfo from '../components/GetUserInfo';
 
 // const CheckBox = (label, selected = false, onChange = () => {}) => {
 //     return(
@@ -73,17 +74,26 @@ const AllHotels = () => {
         "Newest First",
     ]
     useEffect(() => {
-        const fetchHotels = async () => {
-        try {
-            const res = await axios.get("http://localhost:5000/api/hotels"); 
-            setHotels(res.data);
-        } catch (err) {
-            console.error("Error fetching hotels:", err);
-        }
-        };
+            const fetchHotels = async () => {
+            try {
+                const res = await axios.get("http://localhost:5000/api/hotels"); 
+                setHotels(res.data);
+            } catch (err) {
+                console.error("Error fetching hotels:", err);
+            }
+            };
 
-        fetchHotels();
-    }, []);
+            fetchHotels();
+        }, []
+    );
+
+    const [showModal, setShowModal] = useState(false);
+    const [selectedHotelId, setSelectedHotelId] = useState(null);
+
+    const handleOpenModal = (hotelId) => {
+        setSelectedHotelId(hotelId);
+        setShowModal(true);
+    };
 
     return (
         <div className='flex flex-col-reverse lg:flex-row items-start justify-between pt-20 md:pt-25 px-4 md:px-16 lg:px-24 xl:px-32'>
@@ -123,14 +133,23 @@ const AllHotels = () => {
                             {/* Hotel Price */} 
                             {/* <p className='text-xl font-medium text-gray-700'>₹ 2000/night</p> */}
                             <button className="w-fit px-3 py-1.5 text-sm font-medium border border-gray-300 
-                                rounded hover:bg-gray-100 transition-all cursor-pointer whitespace-nowrap">
+                                rounded hover:bg-gray-100 transition-all cursor-pointer whitespace-nowrap"
+                                onClick={() => handleOpenModal(hotel)} >
                                 Get Callback
                             </button>
 
-
+                           
                         </div>
                     </div>
                 ))}
+
+                 {/* Modal */}
+                {showModal && (
+                    <GetUserInfo
+                    hotelId={selectedHotelId}
+                    onClose={() => setShowModal(false)}
+                    />
+                )}
             </div>
             {/* Filters */}
             <div className='bg-white w-80 border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:mt-16'>

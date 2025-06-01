@@ -10,7 +10,7 @@ const Hero = () => {
         <h1 className='font-playfair text-2xl md:text-5xl md:text-[56px] md:leading-[56px] font-bold md:font-extrabold max-w-xl mt-4'>Discover Your Perfect Gateway Destination</h1>
         <p className='max-w-150 mt-2 text-sm md:text-base'>Discover and book the perfect stay with our hotel booking platform. Compare prices, explore amenities, and reserve rooms from top hotels worldwide – all in one place. Fast, secure, and hassle-free booking experience.</p>
     
-        <form className='bg-white text-gray-500 rounded-lg px-6 py-4 flex flex-col md:flex-row max-md:items-start gap-4 max-md:mx-auto mt-9'>
+        {/* <form className='bg-white text-gray-500 rounded-lg px-6 py-4 flex flex-col md:flex-row max-md:items-start gap-4 max-md:mx-auto mt-9'>
             
             <div>
                 <div className='flex items-center gap-2'>
@@ -49,7 +49,7 @@ const Hero = () => {
             <button className='flex items-center justify-center gap-1 rounded-md bg-black py-3 px-4 text-white my-auto cursor-pointer max-md:w-full max-md:py-1' >
                 <span>Search</span>
             </button>
-        </form>
+        </form> */}
     </div>
   )
 }
