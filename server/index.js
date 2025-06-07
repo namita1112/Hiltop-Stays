@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("API working fine 🚀");
+});
+
 const hotelRoutes = require("./routes/hotelRoutes");
 app.use("/api", hotelRoutes);
 
