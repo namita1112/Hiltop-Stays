@@ -40,7 +40,7 @@ exports.createHotel = async (req, res) => {
     const hotel = new Hotel({
       hotelName: req.body.hotelName,
       title: req.body.title,
-      description: req.body.description,
+      description: JSON.parse(req.body.description),
       address: req.body.address,
       contact: req.body.contact,
       city: req.body.city,
@@ -119,6 +119,13 @@ exports.updateHotel = async (req, res) => {
       req.body.roomsType = JSON.parse(req.body.roomsType);
     } catch (error) {
       return res.status(400).json({ error: 'Invalid roomsType format' });
+    }
+  }
+  if (req.body.description && typeof req.body.description === 'string') {
+    try {
+      req.body.description = JSON.parse(req.body.description);
+    } catch (error) {
+      return res.status(400).json({ error: 'Invalid description format' });
     }
   }
   const updated = await Hotel.findByIdAndUpdate(id, req.body, { new: true });

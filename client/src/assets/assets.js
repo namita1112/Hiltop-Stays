@@ -37,9 +37,23 @@ import exclusiveOfferCardImg3 from "./exclusiveOfferCardImg3.png";
 // import uploadArea from "./uploadArea.svg";
 // import totalBookingIcon from "./totalBookingIcon.svg";
 // import totalRevenueIcon from "./totalRevenueIcon.svg";
-
-
+import strawberry1 from "./strawberry1.jpg";
+import strawberry3 from "./strawberry3.jpeg";
+import strawberry4 from "./strawberry4.jpeg";
+import litchi1 from "./litchi1.jpg";
+import litchi2 from "./litchi2.jpg";
+import litchi3 from "./litchi3.jpg";
+import gooseberry1 from "./gooseberry1.jpg";
+import gooseberry2 from "./gooseberry2.jpg";
 export const assets = {
+    strawberry1,
+    strawberry3,
+    strawberry4,
+    litchi1,
+    litchi2,
+    litchi3,
+    gooseberry1,
+    gooseberry2,
     logo,
     searchIcon,
     // userIcon,

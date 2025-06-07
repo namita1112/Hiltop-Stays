@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import Title from "../../components/Title";
 import Select from 'react-select';
-
+import { CiCircleRemove } from "react-icons/ci";
 const AddHotel = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [hotelData, setHotelData] = useState({
         hotelName: "",
         title: "",
-        description: "",
+        description: [],
         address: "",
         contact: "+91-8097809705",
         city: "",
         owner: "",
         ownerContact: "",
         rating: "",
+        latitude: "",
+        longitude: "",
         amenities: [], // array of strings
         roomsType: []  // array of objects like [{type: "Deluxe", price: 3000}]
     });
@@ -28,8 +30,6 @@ const AddHotel = () => {
     const handleFileChange = (e) => {
         setImages([...e.target.files]);
     };
-
-    const [selectedAmenity, setSelectedAmenities] = useState(null);
     const amenities = [
         { label: 'Room Services', value: 'Room Services' },
         { label: 'Mountain View', value: 'Mountain View' },
@@ -56,54 +56,68 @@ const AddHotel = () => {
         { label: 'Recreational Services', value: 'Recreational Services' },
     ];
 
-
-    const handleAddAmenity = (amenity) => {
-        setHotelData((prev) => ({
-        ...prev,
-        amenities: [...prev.amenities, amenity]
-        }));
+    const [descriptionList, setDescriptionList] = useState([{ title: '', desc: '' }]);
+    const handleDescriptionChange = (index, field, value) => {
+    const updatedList = [...descriptionList];
+        updatedList[index][field] = value;
+        setDescriptionList(updatedList);
     };
 
-    const handleAddRoomType = (room) => {
-        setHotelData((prev) => ({
-        ...prev,
-        roomsType: [...prev.roomsType, room]
-        }));
+    const addDescriptionField = () => {
+        setDescriptionList([...descriptionList, { title: '', desc: '' }]);
+    };
+
+    const removeDescription = (index) => {
+        const updatedList = [...descriptionList];
+        updatedList.splice(index, 1);
+        setDescriptionList(updatedList);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        const formData = new FormData();
-        console.log("formData: ",formData);
-        for (const key in hotelData) {
-        if (key === "amenities" || key === "roomsType") {
-            formData.append(key, JSON.stringify(hotelData[key]));
-        } else {
-            formData.append(key, hotelData[key]);
-        }
-        }
 
-        images.forEach((img) => {
-            formData.append("images", img);
-        });
+        const formData = new FormData();
+        formData.append("hotelName", hotelData.hotelName);
+        formData.append("title", hotelData.title);
+        formData.append("description", JSON.stringify(descriptionList));
+        formData.append("address", hotelData.address);
+        formData.append("contact", hotelData.contact);
+        formData.append("city", hotelData.city);
+        formData.append("owner", hotelData.owner);
+        formData.append("ownerContact", hotelData.ownerContact);
+        formData.append("rating", hotelData.rating);
+        formData.append("latitude", hotelData.latitude);
+        formData.append("longitude", hotelData.longitude);
+        formData.append("roomsType", JSON.stringify(hotelData.roomsType));
+        formData.append("amenities", JSON.stringify(hotelData.amenities));
+
+        // Append images once
+        for (let i = 0; i < images.length; i++) {
+            formData.append("images", images[i]);
+        }
+        console.log(typeof descriptionList);
+
+        for (let [key, val] of formData.entries()) {
+            console.log( typeof val);
+        }
 
         try {
-            const res = await axios.post("http://localhost:5000/api/hotels", formData, {
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/hotels`, formData, {
                 headers: {
-                "Content-Type": "multipart/form-data",
+                    "Content-Type": "multipart/form-data",
                 },
             });
-                alert("Hotel added successfully!");
-                console.log(res.data);
-                window.location.reload();
-            } catch (err) {
-                console.error("Error adding hotel:", err);
-                alert("Failed to add hotel.");
-            }finally {
-                setIsLoading(false); // Hide loader regardless of success/failure
-            }
-        };
+            alert("Hotel added successfully!");
+            console.log(res.data);
+            window.location.reload();
+        } catch (err) {
+            console.error("Error adding hotel:", err);
+            alert("Failed to add hotel.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
 
@@ -240,38 +254,91 @@ const AddHotel = () => {
                     
 
                     <div className="flex-1 sm:mt-0">
-                        <label htmlFor="description" className="text-gray-600">Hotel Description</label>
-                        <textarea
-                            name="description"
-                            id="description"
-                            rows="4"
-                            placeholder="Enter Hotel Description..."
-                            value={hotelData.description}
+                        <label htmlFor="latitude" className="text-gray-600">Latitude</label>
+                        <input
+                            type="text" 
+                            id="latitude" 
+                            name="latitude"
+                            placeholder="Enter Latitude"
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
-
                     </div>
                 </div>
+                
+                <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
+                    <div className="flex-1">
+                         <label htmlFor="longitude" className="text-gray-600">Longitude</label>
+                        <input
+                            type="text" 
+                            id="longitude" 
+                            name="longitude"
+                            placeholder="Enter Longitude"
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
 
+                    
+
+                    <div className="flex-1 sm:mt-0">
+                       
+                    </div>
+                </div>
 
                 
                 
             </div>
+            <div className='mt-4'>
+                <label className="text-gray-600">Hotel Description (Title + Detail)</label>
+                {descriptionList.map((item, index) => (
+                <div key={index} className="flex gap-4 mb-3">
+                    <input
+                    type="text"
+                    placeholder="Title (e.g. Room Service)"
+                    value={item.title}
+                    onChange={(e) => handleDescriptionChange(index, 'title', e.target.value)}
+                    className="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <input
+                    type="text"
+                    placeholder="Description (e.g. Available 24/7)"
+                    value={item.desc}
+                    onChange={(e) => handleDescriptionChange(index, 'desc', e.target.value)}
+                    className="w-2/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    {descriptionList.length > 1 && <CiCircleRemove onClick={() => removeDescription(index)}
+                    className=" h-10 w-10 text-red-500 hover:underline cursor-pointer"/>}
+                    
+                </div>
+                ))}
+
+                <button
+                type="button"
+                onClick={addDescriptionField}
+                className="mt-2 mb-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition cursor-pointer"
+                >
+                Add Description
+                </button>
+            </div>
+            
+
             {/* Upload area for images */}
             <label htmlFor="images" className="text-gray-600 mt-10">Add Hotel Images</label>
             <input className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="images" name="images" type="file" multiple accept="image/*" onChange={handleFileChange} />
 
             <div className="grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap">
                 {images.map((image, index) => (
-                    <label htmlFor={index}>
-                        <img
-                        src={URL.createObjectURL(image)}
-                        alt={`Preview ${index}`}
-                        className="max-h-30 cursor-pointer opacity-80"
-                        />
-                    </label>
-                ))}
+                        <label key={index} htmlFor={index}>
+                            <img
+                            src={URL.createObjectURL(image)}
+                            alt={`Preview ${index}`}
+                            className="max-h-30 cursor-pointer opacity-80"
+                            />
+                        </label>
+                    ))
+                }
+
             </div>
 
             <div className="flex justify-end mt-4">

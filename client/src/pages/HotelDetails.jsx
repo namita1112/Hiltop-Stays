@@ -4,9 +4,10 @@ import axios from "axios";
 import { IoLocationOutline } from "react-icons/io5";
 import StarRating from '../components/StarRating';
 // import MyModal from '../components/myModal';
-
+import HotelLocationMap from '../components/HotelLocationMap';
 import { facilityIcons } from '../assets/assets';
 import ImageModal from '../components/ImageModal';
+import GetUserInfo from '../components/GetUserInfo';
 
 const HotelDetails = () => {
     const {id} = useParams();
@@ -15,19 +16,51 @@ const HotelDetails = () => {
     const [showModal, setShowModal] = useState(false); 
     const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
+    const [expanded, setExpanded] = useState(false);
+    const [showContactModal, setShowContactModal] = useState(false);
+    const [selectedHotelId, setSelectedHotelId] = useState(null);
+
+    const handleOpenModal = (hotelId) => {
+        setSelectedHotelId(hotelId);
+        setShowContactModal(true);
+    };
+
+    const handleContactClick = () => {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (!isMobile) {
+            alert("Calling is only supported on mobile devices. Please use a phone to call.");
+        } else {
+            // Replace with your phone number
+            window.location.href = "tel:+918097809705";
+        }
+    };
+
 
     useEffect(() => {
         const fetchHotelById = async () => {
             try {
-                const hotel = await axios.get(`http://localhost:5000/api/hotels/${id}`);
+                const hotel = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/hotels/${id}`);
                 hotel && setHotel(hotel.data);
                 hotel && setMainImage(hotel.data.images[0]);
+                console.log(typeof hotel.description);
             } catch (err) {
                 console.error("Error fetching hotel details:", err);
             }
         };
         fetchHotelById();
     }, [id]);
+
+    // let parsedDescription = [];
+    // try {
+    //     if (Array.isArray(hotel.description) && typeof hotel.description[0] === 'string') {
+    //         parsedDescription = JSON.parse(hotel.description[0]); // parse the first string item
+    //     } else if (Array.isArray(hotel.description)) {
+    //         parsedDescription = hotel.description;
+    //     }
+    // } catch (err) {
+    //     console.error("Invalid description format", err);
+    // }
 
     if (!hotel) return <div>Loading...</div>;
 
@@ -42,10 +75,10 @@ const HotelDetails = () => {
         </div>
 
         {/* Rating */}
-        <div className='flex items-center gap-1 mt-2'>
+        {/* <div className='flex items-center gap-1 mt-2'>
             <StarRating />
             <p className='ml-2'>200+ reviews</p>
-        </div>
+        </div> */}
 
         {/* Address */}
         <div className='flex items-center gap-1 text-gray-500 mt-2'>
@@ -108,13 +141,19 @@ const HotelDetails = () => {
             {/* hotel price */}
             {/* <p className='text-2xl font-medium'>₹ 2000/night</p> */}
             <div className="pb-6 sm:pb-0">
-                <button className="w-fit px-3 py-1.5 text-sm font-medium border border-gray-300 
+                <button onClick={() => handleOpenModal(hotel)} className="w-fit px-3 py-1.5 text-sm font-medium border border-gray-300 
                     rounded hover:bg-gray-200 transition-all cursor-pointer whitespace-nowrap">
                     Get Callback
                 </button>
             </div>
             
         </div>
+        {showContactModal && (
+            <GetUserInfo
+            hotelId={selectedHotelId}
+            onClose={() => setShowContactModal(false)}
+            />
+        )}
 
         {/* CheckIn CheckOut Form */}
         {/* <form className='flex flex-col md:flex-row items-start md:items-center justify-between bg-white 
@@ -150,10 +189,65 @@ const HotelDetails = () => {
             <div className='flex items-start gap-2'>
                 <div>
                     <p className='text-2xl'>{hotel.title}</p>
-                    <p className='border-y border-gray-300 my-15 py-10 text-gray-500 text-xl'>{hotel.description}</p>
+                    <div className="my-5">
+                        <div
+                            className={`text-gray-500 text-xl relative overflow-hidden transition-all ${
+                                expanded ? "" : "line-clamp-5"
+                            }`}
+                        > 
+                            {Array.isArray(hotel.description) &&
+                                hotel.description.map((item, index) => (
+                                    <div key={index} className="mb-4">
+                                    <h3 className="text-lg font-semibold text-black">{item.title}</h3>
+                                    {["Property Highlights", "Room details and Amenities"].includes(item.title) ? (
+                                        <ul className="list-disc list-inside text-gray-600">
+                                        {item.desc
+                                            .split(". ")
+                                            .filter(sentence => sentence.trim() !== "")
+                                            .map((sentence, i) => (
+                                            <li key={i}>{sentence.trim().replace(/\.$/, "")}.</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-gray-600">{item.desc}</p>
+                                    )}
+                                    </div>
+                                ))
+                            }
+
+
+                            {/* {Array.isArray(hotel.description) &&
+                                hotel.description.map((item, index) => (
+                                    <div key={index} className="mb-4">
+                                        <h3 className="text-lg font-semibold text-black">{item.title}</h3>
+                                        <p className="text-gray-600">{item.desc}</p>
+                                    </div>
+                                ))
+                            } */}
+                            {/* {hotel.description} */}
+
+                        </div>
+                        <button
+                            onClick={() => setExpanded(!expanded)}
+                            className="text-blue-600 font-medium mt-2 cursor-pointer"
+                        >
+                            {expanded ? "Show less" : "Show more..."}
+                        </button>
+                    </div>
+
                 </div>
             </div>
-            <button className='px-6 py-2.5 mt-4 rounded text-white bg-primary hover:pb-primary-dull transition-all cursor-pointer'>Contact Now</button>
+            <div className='mb-5'>
+                <HotelLocationMap
+                    hotelName={hotel.hotelName}
+                    address={hotel.address}
+                    latitude={17.8941226}
+                    longitude={73.6516607}
+                />
+            </div>
+           <button onClick={handleContactClick} type="submit" className="bg-blue-700 hover:bg-blue-800 active:scale-95 transition-all text-white rounded-md max-md:w-full max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer">
+                Contact Now
+            </button>
         </div>
                 
        

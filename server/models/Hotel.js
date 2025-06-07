@@ -8,9 +8,10 @@ const hotelSchema = new mongoose.Schema({
     title: {
         type: String,
     },
-    description:{
-        type: String,
-    },
+    description: [{
+        title: { type: String },
+        desc: { type: String }
+    }],
     address: {
         type: String,
         required: true,
@@ -39,8 +40,18 @@ const hotelSchema = new mongoose.Schema({
     roomsType:{
         type: [String],
     },
+    latitude:{
+        type: Number,
+    },
+    longitude:{
+        type: Number,
+    },
     rating: {
         type: Number,
+    },
+    status: {
+        type:Boolean,
+        default: true,
     },
     createdAt: {
         type: Date,

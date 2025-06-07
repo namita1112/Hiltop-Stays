@@ -4,6 +4,7 @@ import FeaturedDestination from '../components/FeaturedDestination'
 import ExclusiveOffers from '../components/ExclusiveOffers'
 import Testimonial from '../components/Testimonial'
 import NewsLetter from '../components/NewsLetter'
+import FruitOffers from '../components/FruitOffers'
 
 const Home = () => {
   return (
@@ -11,7 +12,8 @@ const Home = () => {
       <Hero />
       <FeaturedDestination />
       <ExclusiveOffers />
-      <Testimonial />
+      {/* <Testimonial /> */}
+      <FruitOffers />
       <NewsLetter />
     </>
   )

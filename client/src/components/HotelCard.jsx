@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FaRegStarHalfStroke } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
 const HotelCard = ({hotel, index}) => {
   return (
     <Link
@@ -43,10 +44,10 @@ const HotelCard = ({hotel, index}) => {
         </div>
         <div className='flex items-center justify-between mt-auto'>
           <p>
-            <span className='text-xl text-gray-800'>₹ 2000/night</span>
+            {/* <span className='text-xl text-gray-800'>₹ 2000/night</span> */}
           </p>
-          <button onClick={() => {navigate('/hotels/' + hotel._id); scrollTo(0,0)}} className='px-4 py-2 text-sm font-medium border border-gray-300 rounded hover:bg-gray-50 transition-all cursor-pointer'>
-            Book Now.
+          <button onClick={() => {navigate('/hotels/' + hotel._id); scrollTo(0,0)}} className='px-4 py-2 text-sm font-medium border border-gray-300 rounded hover:bg-gray-100 transition-all cursor-pointer'>
+            View Details
           </button>
         </div>
       </div>

@@ -29,7 +29,7 @@ const GetUserInfo = ({ hotelId, onClose }) => {
         const ownerPhoneNumber = "918097809705"; // hotel owner's WhatsApp number (with country code, no +)
 
         try {
-            const response = await fetch('http://localhost:5000/api/send-message', {  // Adjust URL as needed
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/send-message`, {  // Adjust URL as needed
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
