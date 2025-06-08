@@ -4,6 +4,7 @@ import Title from "../../components/Title";
 import Select from 'react-select';
 import { CiCircleRemove } from "react-icons/ci";
 const AddHotel = () => {
+    console.log("VITE_BACKEND_URL :",`${import.meta.env.VITE_BACKEND_URL}`);
     const [isLoading, setIsLoading] = useState(false);
     const [hotelData, setHotelData] = useState({
         hotelName: "",
