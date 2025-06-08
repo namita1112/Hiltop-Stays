@@ -40,7 +40,8 @@ const HotelDetails = () => {
     useEffect(() => {
         const fetchHotelById = async () => {
             try {
-                const hotel = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/hotels/${id}`);
+                const hotel = await axios.get("https://api.hiltopstay.com/api/hotels");
+                // const hotel = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/hotels/${id}`);
                 hotel && setHotel(hotel.data);
                 hotel && setMainImage(hotel.data.images[0]);
                 console.log(typeof hotel.description);

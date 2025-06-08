@@ -11,7 +11,8 @@ const ListHotel = () => {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}api/hotels`);
+        const res = await axios.get("https://api.hiltopstay.com/api/hotels");
+        // const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}api/hotels`);
         // const res = await axios.get("http://localhost:5000/api/hotels"); 
         setHotels(res.data);
       } catch (err) {

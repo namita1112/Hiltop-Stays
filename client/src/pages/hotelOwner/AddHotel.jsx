@@ -4,6 +4,8 @@ import Title from "../../components/Title";
 import Select from 'react-select';
 import { CiCircleRemove } from "react-icons/ci";
 const AddHotel = () => {
+    const url = "https://api.hiltopstay.com/api/hotels";
+    console.log(url);
     useEffect(() => {
         const apiURL = import.meta.env.VITE_API_URL;
         console.log("VITE_BACKEND_URL :", apiURL);
