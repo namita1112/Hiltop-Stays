@@ -5,7 +5,8 @@ import Select from 'react-select';
 import { CiCircleRemove } from "react-icons/ci";
 const AddHotel = () => {
     useEffect(() => {
-        console.log("VITE_BACKEND_URL :", import.meta.env.VITE_BACKEND_URL);
+        const apiURL = import.meta.env.VITE_API_URL;
+        console.log("VITE_BACKEND_URL :", apiURL);
     }, []);
     const [isLoading, setIsLoading] = useState(false);
     const [hotelData, setHotelData] = useState({
