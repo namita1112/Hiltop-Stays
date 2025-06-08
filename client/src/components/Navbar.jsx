@@ -46,7 +46,8 @@ const Navbar = () => {
 
             {/* Logo */}
             <Link to='/'>
-                <img src={assets.logo} alt="logo" className={`h-9`} />
+                <img src="https://res.cloudinary.com/dytbju4xg/image/upload/hiltop_staysLogo_crop_bdigev.png" alt="logo" className={`h-9`} />
+                {/* <img src={assets.logo} alt="logo" className={`h-9`} /> */}
                 {/* <img src={assets.logo} alt="logo" className={`h-9 ${isScrolled && "invert opacity-80"}`} /> */}
             </Link>
 
