@@ -104,7 +104,8 @@ const AddHotel = () => {
 
         try {
             console.log("VITE_BACKEND_URL :",`${import.meta.env.VITE_BACKEND_URL}`);
-            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}api/hotels`, formData, {
+            const res = await axios.post(`https://api.hiltopstay.com/api/hotels`, formData, {
+            // const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}api/hotels`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
