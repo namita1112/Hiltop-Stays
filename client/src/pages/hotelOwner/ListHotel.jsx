@@ -11,10 +11,9 @@ const ListHotel = () => {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const URL = "https://api.hiltopstay.com/api/hotels"
+        const URL = "https://api.hiltopstay.com/api/hotels".replace(/([^:]\/)\/+/g, "$1");
+        console.log("URL:", URL); 
         const res = await axios.get(URL);
-        // const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}api/hotels`);
-        // const res = await axios.get("http://localhost:5000/api/hotels"); 
         setHotels(res.data);
       } catch (err) {
         console.error("Error fetching hotels:", err);
