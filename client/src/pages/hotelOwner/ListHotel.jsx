@@ -11,9 +11,12 @@ const ListHotel = () => {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const URL = "https://api.hiltopstay.com/api/hotels".replace(/([^:]\/)\/+/g, "$1");
-        console.log("URL:", URL); 
-        const res = await axios.get(URL);
+         const API_URL = import.meta.env.VITE_ENV_MODE === "local"
+                    ? "http://localhost:5000/api/hotels"
+                    : "https://api.hiltopstay.com/api/hotels";
+        // const URL = "https://api.hiltopstay.com/api/hotels".replace(/([^:]\/)\/+/g, "$1");
+        // console.log("URL:", URL); 
+        const res = await axios.get(API_URL);
         setHotels(res.data);
       } catch (err) {
         console.error("Error fetching hotels:", err);

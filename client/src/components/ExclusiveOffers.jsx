@@ -9,21 +9,39 @@ const ExclusiveOffers = () => {
   const [hotels, setHotels] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchHotels = async () => {
-      try {
-        // const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/hotels`);
-          const res = await axios.get("https://api.hiltopstay.com/api/hotels");
-          // const res = await axios.get("http://localhost:5000/api/hotels"); 
-        setHotels(res.data);
-      } catch (err) {
-          console.error("Error fetching hotels:", err);
-      }
+  // useEffect(() => {
+  //   const fetchHotels = async () => {
+  //     try {
+  //       // const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/hotels`);
+  //         const res = await axios.get("https://api.hiltopstay.com/api/hotels");
+  //         // const res = await axios.get("http://localhost:5000/api/hotels"); 
+  //       setHotels(res.data);
+  //     } catch (err) {
+  //         console.error("Error fetching hotels:", err);
+  //     }
+  //     };
+
+  //     fetchHotels();
+  //   }, []
+  // );
+    useEffect(() => {
+      const fetchHotels = async () => {
+          try {
+              const API_URL =
+                  import.meta.env.VITE_ENV_MODE === "local"
+                      ? "http://localhost:5000/api/hotels"
+                      : "https://api.hiltopstay.com/api/hotels";
+
+              const res = await axios.get(API_URL);
+              setHotels(res.data);
+          } catch (err) {
+              console.error("Error fetching hotels:", err);
+          }
       };
 
       fetchHotels();
-    }, []
-  );
+  }, []);
+
   return (
     <div className='flex flex-col items-center px-6 md:px-16 lg:px-24 xl:px-32 pt-20 pb-30'>
       <div className='flex flex-col md:flex-row items-center justify-between w-full'>

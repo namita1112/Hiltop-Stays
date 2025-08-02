@@ -8,7 +8,10 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchHotels = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}api/hotels`);
+            const API_URL = import.meta.env.VITE_ENV_MODE === "local"
+                    ? "http://localhost:5000/api/hotels"
+                    : "https://api.hiltopstay.com/api/hotels";
+            const res = await axios.get(API_URL);
             // const res = await axios.get("http://localhost:5000/api/hotels"); 
             setHotels(res.data);
         } catch (err) {

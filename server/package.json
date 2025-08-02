@@ -17,6 +17,10 @@
     "express": "^5.1.0",
     "mongoose": "^8.15.0",
     "multer": "^2.0.0",
+    "nodemailer": "^7.0.5",
+    "pdfkit": "^0.17.1",
+    "puppeteer": "^24.15.0",
+    "razorpay": "^2.9.6",
     "streamifier": "^0.1.1",
     "twilio": "^5.7.0"
   },

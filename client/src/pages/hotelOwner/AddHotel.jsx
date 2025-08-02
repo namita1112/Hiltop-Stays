@@ -62,6 +62,12 @@ const AddHotel = () => {
         { label: 'Recreational Services', value: 'Recreational Services' },
     ];
 
+    const hotel_type = [
+        { label: 'Villa', value: 'Villa' },
+        { label: 'Hotel', value: 'Hotel' },
+        { label: 'Homestay', value: 'Homestay' },
+    ]
+
     const [descriptionList, setDescriptionList] = useState([{ title: '', desc: '' }]);
     const handleDescriptionChange = (index, field, value) => {
     const updatedList = [...descriptionList];
@@ -111,9 +117,12 @@ const AddHotel = () => {
         // try {
         console.log("VITE_BACKEND_URL :",`${import.meta.env.VITE_API_URL}`);
         const BASE = import.meta.env.VITE_API_URL.replace(/\/$/, "");
+        const API_URL = import.meta.env.VITE_ENV_MODE === "local"
+                    ? "http://localhost:5000/api/hotels"
+                    : "https://api.hiltopstay.com/api/hotels";
         // const res = await axios.post(`https://api.hiltopstay.com/api/hotels`, formData, {
         // const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}api/hotels`, formData, {
-        const res = await axios.post("https://api.hiltopstay.com/api/hotels", formData, {
+        const res = await axios.post(API_URL, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -135,6 +144,7 @@ const AddHotel = () => {
             <Title font="outfit" title="Add Hotel" subTitle="Fill in the details carefully and room details, amenities to enhance the user booking experience"/>
             <div className="w-full flex flex-col sm:gap-4 mt-4">
                 <div className="flex flex-col sm:flex-row sm:gap-4">
+                    {/* Hotel Name */}
                     <div className="flex-1">
                         <label htmlFor="hotelName" className="text-gray-600">Hotel Name</label>
                         <input
@@ -147,6 +157,7 @@ const AddHotel = () => {
                         />
                     </div>
 
+                    {/* Hotel Title */}
                     <div className="flex-1 sm:mt-0">
                         <label htmlFor="title" className="text-gray-600">Hotel Title</label>
                         <input
@@ -160,6 +171,7 @@ const AddHotel = () => {
                     </div>
                 </div>
                 <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
+                    {/* Hotel Address */}
                     <div className="flex-1">
                         <label htmlFor="address" className="text-gray-600">Hotel Address</label>
                         <input
@@ -171,7 +183,7 @@ const AddHotel = () => {
                             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
-
+                    {/* Contact */}
                     <div className="flex-1 sm:mt-0">
                         <label htmlFor="contact" className="text-gray-600">Contact</label>
                         <input
@@ -187,6 +199,7 @@ const AddHotel = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
+                    {/* Hotel Owner Name */}
                     <div className="flex-1">
                         <label htmlFor="owner" className="text-gray-600">Hotel Owner Name</label>
                         <input
@@ -198,7 +211,7 @@ const AddHotel = () => {
                             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
-
+                    {/* Hotel Owner Contact */}
                     <div className="flex-1 sm:mt-0">
                         <label htmlFor="ownerContact" className="text-gray-600">Hotel Owner Contact</label>
                         <input
@@ -213,6 +226,7 @@ const AddHotel = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
+                    {/* Hotel City */}
                     <div className="flex-1">
                         <label htmlFor="city" className="text-gray-600">Hotel City</label>
                         <input
@@ -225,44 +239,56 @@ const AddHotel = () => {
                         />
                     </div>
 
-                    
+                    {/* Hotel Location */}
+                    <div className="flex-1">
+                        <label htmlFor="location" className="text-gray-600">Hotel Location</label>
+                        <input
+                            type="text" 
+                            id="location" 
+                            name="location"
+                            placeholder="Enter Hotel Location"
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
 
-                    <div className="flex-1 sm:mt-0">
-                        <label htmlFor="amenities" className="text-gray-600">Hotel Amenities</label>
-                        <Select
-                            isMulti
-                            name="amenities"
-                            options={amenities}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            closeMenuOnSelect={false}
-                            onChange={(selected) => {
-                            const selectedValues = selected.map(item => item.value);
-                            setHotelData(prev => ({ ...prev, amenities: selectedValues }));
-                            }}
+                    
+                  
+                </div>
+
+
+               
+                <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
+                    {/* Hotel Distance */}
+                    <div className="flex-1">
+                        <label htmlFor="distance" className="text-gray-600">Hotel Distance</label>
+                        <input
+                            type="text" 
+                            id="distance" 
+                            name="distance"
+                            placeholder="Enter Hotel Distance"
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
+
+
+                    {/* Hotel Ratings */}
+                    <div className="flex-1">
+                        <label htmlFor="ratings" className="text-gray-600">Hotel Ratings</label>
+                        <input
+                            type="text" 
+                            id="ratings" 
+                            name="ratings"
+                            placeholder="Enter Hotel Ratings"
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
                 </div>
-
+                
                 <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
-                    <div className="flex-1">
-                        <label htmlFor="roomsType" className="text-gray-600">Room Types</label>
-                        <Select
-                            isMulti
-                            name="roomsType"
-                            options={room_types}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            closeMenuOnSelect={false}
-                            onChange={(selected) => {
-                                const selectedValues = selected.map(item => item.value);
-                                setHotelData(prev => ({ ...prev, roomsType: selectedValues })); 
-                            }}
-                        />
-                    </div>
-
-                    
-
+                     {/* Hotel latitude */}
                     <div className="flex-1 sm:mt-0">
                         <label htmlFor="latitude" className="text-gray-600">Latitude</label>
                         <input
@@ -274,9 +300,8 @@ const AddHotel = () => {
                             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
+
+                    {/* Longitude */}
                     <div className="flex-1">
                          <label htmlFor="longitude" className="text-gray-600">Longitude</label>
                         <input
@@ -289,16 +314,87 @@ const AddHotel = () => {
                         />
                     </div>
 
-                    
+                </div>
 
-                    <div className="flex-1 sm:mt-0">
-                       
+
+                <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
+                    {/* Hotel Type */}
+                    <div className="flex-1">
+                        <label htmlFor="hotelType" className="text-gray-600">Hotel Type</label>
+                        <Select
+                        name="hotelType"
+                        options={hotel_type}
+                        className="basic-select"
+                        classNamePrefix="select"
+                        closeMenuOnSelect={true}
+                        onChange={(selected) => {
+                            const selectedType = selected?.value;
+                            setHotelData(prev => ({
+                            ...prev,
+                            hotelType: selectedType,
+                            isEntireProperty: selectedType === 'Villa' || selectedType === 'Homestay'
+                            }));
+                        }}
+                        value={hotel_type.find(option => option.value === hotelData.hotelType)}
+                        />
                     </div>
+
+                    {/* isEntireProperty */}
+                    <div className="flex-1 flex items-center mt-4 sm:mt-0">
+                        <input
+                        type="checkbox"
+                        id="isEntireProperty"
+                        name="isEntireProperty"
+                        checked={hotelData.isEntireProperty || false}
+                        onChange={(e) => {
+                            setHotelData(prev => ({
+                            ...prev,
+                            isEntireProperty: e.target.checked
+                            }));
+                        }}
+                        className="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        />
+                        <label htmlFor="isEntireProperty" className="text-gray-600">
+                        Is Entire Property
+                        </label>
+                    </div>
+                </div>
+
+
+                <div className="flex flex-col sm:flex-row sm:gap-4 mt-2">
+                     {/* Hotel Check-In */}
+                    <div className="flex-1 sm:mt-0">
+                        <label htmlFor="checkIn" className="text-gray-600">Check-In</label>
+                        <input
+                            type="text" 
+                            id="checkIn" 
+                            name="checkIn"
+                            placeholder="Enter Check-In"
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
+                
+                    {/* Hotel Check-In */}
+                    <div className="flex-1 sm:mt-0">
+                        <label htmlFor="checkOut" className="text-gray-600">Check-Out</label>
+                        <input
+                            type="text" 
+                            id="checkOut" 
+                            name="checkOut"
+                            placeholder="Enter Check-Out"
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
+                   
                 </div>
 
                 
                 
             </div>
+
+            {/* Hotel Description */}
             <div className='mt-4'>
                 <label className="text-gray-600">Hotel Description (Title + Detail)</label>
                 {descriptionList.map((item, index) => (
@@ -331,6 +427,41 @@ const AddHotel = () => {
                 Add Description
                 </button>
             </div>
+
+
+            {/* Hotel Amenities */}
+            <div className="flex-1 sm:mt-0">
+                <label htmlFor="amenities" className="text-gray-600">Hotel Amenities</label>
+                <Select
+                    isMulti
+                    name="amenities"
+                    options={amenities}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    closeMenuOnSelect={false}
+                    onChange={(selected) => {
+                    const selectedValues = selected.map(item => item.value);
+                    setHotelData(prev => ({ ...prev, amenities: selectedValues }));
+                    }}
+                />
+            </div>
+
+              {/* Room Type - remove from here and add in rooms page */}
+                    <div className="flex-1">
+                        <label htmlFor="roomsType" className="text-gray-600">Room Types</label>
+                        <Select
+                            isMulti
+                            name="roomsType"
+                            options={room_types}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                            closeMenuOnSelect={false}
+                            onChange={(selected) => {
+                                const selectedValues = selected.map(item => item.value);
+                                setHotelData(prev => ({ ...prev, roomsType: selectedValues })); 
+                            }}
+                        />
+                    </div>
             
 
             {/* Upload area for images */}

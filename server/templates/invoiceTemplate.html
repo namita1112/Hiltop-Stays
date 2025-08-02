@@ -1,0 +1,90 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+        body {
+        font-family: Arial;
+        font-size: 13px;
+        }
+        .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+        .logo {
+        width: 120px;
+        }
+        .qr {
+        width: 100px;
+        }
+        .section {
+        margin-top: 20px;
+        }
+        .line {
+        border-bottom: 1px dashed gray;
+        margin: 10px 0;
+        }
+        .label {
+            font-weight: 'bold';
+            width: 70%;
+            display: inline-block;
+        }
+        .value {
+        float: right;
+        }
+        .note {
+        color: red;
+        margin-top: 20px;
+        }
+        .rounded-box {
+        border-radius: 10px;
+        /* box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15); */
+        padding: 16px;
+        /* background-color: white; */
+        border: 1px solid #000711;
+        }
+    </style>
+    </head>
+    <body>
+    <div class="header">
+        <img src="{{logoPath}}" class="logo" />
+        <img src="{{qrPath}}" class="qr" />
+        <!-- <img src="/full/path/to/server/assets/hiltop_staysLogo_crop.png" class="logo" />
+        <img src="/full/path/to/server/assets/frame.png" class="qr" /> -->
+    </div>
+
+        <div class="section">
+            <h2>TAX INVOICE</h2>
+            <p><strong>Booking ID:</strong> {{bookingId}}</p>
+            <p><strong>Invoice No:</strong> {{invoiceNo}}</p>
+            <p><strong>Date:</strong> {{date}}</p>
+        </div>
+
+    <div class="line"></div>
+
+        <div class="section">
+            <p><strong>Hotel Name:</strong> {{hotelName}}</p>
+            <p><strong>Hotel City:</strong> {{hotelCity}}</p>
+            <p><Strong>Check-In:</Strong> {{checkIn}}</p>
+            <p><strong>Check-Out:</strong> {{checkOut}}</p>
+        </div>
+
+    <div class="line"></div>
+    <h5 style="text-align:center;">PAYMENT BREAKUP</h5>
+    <div class="rounded-box">
+        <p><span class="label"><strong>  Base Price </strong></span><span class="value">₹ {{basePrice}}</span></p>
+        <p><span class="label" style="color: green;"><strong> Total Discount </strong> </span><span class="value" style="color: green;">- ₹ {{discount}}</span></p>
+        <p><span class="label"><strong>  Price after Discount </strong></span><span class="value">₹ {{priceAfterDiscount}}</span></p>
+        <p><span class="label"><strong>  Taxes & Service Fees </strong></span><span class="value">₹ 0</span></p>
+        <p><span class="label"><strong>  Grand Total</strong></span><span class="value">₹ {{grandTotal}}</span></p>
+        <p><span class="label" style="color: green;"><strong>  Paid Amount </strong></span><span class="value" style="color: green;">- ₹ {{paid}}</span></p>
+        <p><span class="label" style="color: red;"><strong>  Remaining Amount </strong></span><span class="value" style="color: red;">₹ {{remaining}}</span></p>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="section note" style="color: red;">
+        * Please pay remaining amount at the hotel while check-in. If you paid full amount then ignore this message.
+    </div>
+    </body>
+    </html>

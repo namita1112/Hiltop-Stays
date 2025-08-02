@@ -9,32 +9,39 @@ import Layout from './pages/hotelOwner/Layout';
 import Dashboard from './pages/hotelOwner/Dashboard';
 import AddHotel from './pages/hotelOwner/AddHotel';
 import ListHotel from './pages/hotelOwner/ListHotel';
+import BookingReview from './pages/BookingReview';
+import PaymentPage from './pages/PaymentPage';
+import SearchedHotels from './pages/SearchedHotels';
 // import HotelReg from './components/HotelReg';
 const App = () => {
-  // this is added to get hotel owner path.
-  const isOwnerPath = useLocation().pathname.includes("owner");
+  const location = useLocation();
+  const isOwnerPath = location.pathname.includes("owner");
+  const isPaymentPage = location.pathname === "/payment";
 
   return (
     <div>
-      {/* !isOwnerPath && is used for to get Navbar only for who is not owner of the hotel. */}
-      { !isOwnerPath && <Navbar />} 
-      {/* <HotelReg/> */}
+      { !isOwnerPath && !isPaymentPage && <Navbar /> }
+
       <div className='min-h-[70vh]'>
         <Routes>
-          <Route path='/' element={<Home/>} />
-          <Route path='/hotels' element={<AllHotels/>} />
-          <Route path='/hotels/:id' element={<HotelDetails/>} />
-          <Route path='/owner' element={<Layout/>}>
-            <Route index element={<Dashboard/>}/>
-            <Route path='add-hotel' element={<AddHotel/>}/>
-            <Route path='hotels' element={<ListHotel/>}/>
+          <Route path='/' element={<Home />} />
+          <Route path='/hotels' element={<AllHotels />} />
+          <Route path='/hotelsSearch' element={<SearchedHotels />} />
+          <Route path='/hotels/:id' element={<HotelDetails />} />
+          <Route path='/hotels/booking/:id' element={<BookingReview />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path='/owner' element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path='add-hotel' element={<AddHotel />} />
+            <Route path='hotels' element={<ListHotel />} />
           </Route>
         </Routes>
       </div>
-      { !isOwnerPath && <Footer />} 
-      
+
+      { !isOwnerPath && !isPaymentPage && <Footer /> }
     </div>
-  )
-}
+  );
+};
+
 
 export default App

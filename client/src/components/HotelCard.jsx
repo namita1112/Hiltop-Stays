@@ -9,23 +9,16 @@ const HotelCard = ({hotel, index}) => {
       to={'/hotels/' + hotel._id}
       onClick={() => scrollTo(0, 0)}
       key={hotel._id}
-      className='relative w-full max-w-70 h-full rounded-xl overflow-hidden bg-white text-gray-500/90 shadow-[0px_4px_4px_rgba(0,0,0,0.05)] flex flex-col'
+      className='relative w-full sm:max-w-80 h-full rounded-xl overflow-hidden bg-white text-gray-500/90 shadow-[0px_4px_4px_rgba(0,0,0,0.05)] flex flex-col'
     >
       {/* Image container with fixed height */}
-      <div className="h-48 w-full overflow-hidden">
+      <div className="h-48 sm:max-w-70 w-full overflow-hidden">
         <img
           src={hotel.images[0]}
           alt=""
-          className="w-full h-full object-cover"
+          className="w-full sm:max-w-70 h-full object-cover"
         />
       </div>
-
-      {/* Best seller badge */}
-      {index % 2 === 0 && (
-        <p className='px-3 py-1 absolute top-3 left-3 text-xs bg-white text-gray-800 font-medium rounded-full'>
-          Best Seller
-        </p>
-      )}
 
       {/* Content section */}
       <div className='p-4 flex flex-col justify-between flex-grow'>

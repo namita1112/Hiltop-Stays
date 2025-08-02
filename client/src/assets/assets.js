@@ -21,12 +21,14 @@ import closeIcon from './closeIcon.svg'
 // import heartIcon from './heartIcon.svg'
 // import badgeIcon from './badgeIcon.svg'
 import menuIcon from './menuIcon.svg'
+
 // import closeMenu from './closeMenu.svg'
 // import guestsIcon from './guestsIcon.svg'
 // import roomImg1 from './roomImg1.png'
 // import roomImg2 from './roomImg2.png'
 // import roomImg3 from './roomImg3.png'
 // import roomImg4 from './roomImg4.png'
+
 import regImage from './regImage.png'
 import exclusiveOfferCardImg1 from "./exclusiveOfferCardImg1.png";
 import exclusiveOfferCardImg2 from "./exclusiveOfferCardImg2.png";
@@ -45,6 +47,188 @@ import litchi2 from "./litchi2.jpg";
 import litchi3 from "./litchi3.jpg";
 import gooseberry1 from "./gooseberry1.jpg";
 import gooseberry2 from "./gooseberry2.jpg";
+import free_wifi from "./free_wi_fi.png";
+import AC from "./air_conditioning.png";
+import Bakery from "./bakery.png";
+import Balcony from "./balcony_terrace.png";
+import Banquet from "./banquet.png";
+import Bornfire from "./bornfire.png";
+import cafe from "./cafe.png";
+import cctv from "./CCTV.png";
+import swimming_pool from "./private_swimming_pool.png";
+import dining_area from "./private_dining_area.png";
+import living_room from "./private_living_room.png";
+import parking from "./private_parking.png";
+import wheelchair from "./wheelchair.webp";
+import water from "./water.png";
+import tv from "./TV.png";
+import toiletries from "./toiletries.png";
+import telephone from "./telephone.png";
+import smoking_room from "./smoking_room.png";
+import spa from "./Spa.png";
+import room_service from "./room_service.png";
+import restaurant from "./restaurant.png";
+import reception from "./Reception.png";
+import printer from "./printer.png";
+import outdoor_sports from "./outdoor_sports.png";
+import other_amenities from "./other_amenities.png";
+import mineral_water from "./Mineral_water.png";
+import Luggage_storage from "./Luggage_storage.png";
+import luggage_assistance from "./luggage_assistance.png";
+import lounge from "./lounge.png";
+import library from "./library.png";
+import laundry from "./Laudry_service.png";
+import LAN from "./LAN.png";
+import kitchenette from "./kitchenette.png";
+import kids_play from "./kids_play.png";
+import kids_club from "./kids_club.png";
+import jacuzzi from "./jacuzzi.png";
+import Indoor_games from "./Indoor_games.png";
+import housekeeping from "./husekeeping.png";
+import gym from "./Gym.png";
+import geyser from "./Geyser-waterHeater.png";
+import firstAidService from "./FirestAidService.png";
+import fire from "./Fire.png";
+import fax from "./FaxService.png";
+import EVCharging from "./EVChargingStation.png";
+import Entertainment from "./Entertainment.png";
+import ConferenceRoom from "./ConferenceRoom.png";
+import Closet from "./closet.png";
+import Dental_kit from "./Dental_kit.png";
+import Iron from "./Iron.png";
+import mini_fridge from "./mini_fridge.png";
+export const amenities = {
+    free_wifi,
+    AC,
+    Bakery,
+    Balcony,
+    Banquet,
+    Bornfire,
+    cafe,
+    cctv,
+    swimming_pool,
+    dining_area,
+    living_room,
+    parking,
+    wheelchair,
+    water,
+    tv,
+    toiletries,
+    telephone,
+    smoking_room,
+    spa,
+    room_service,
+    restaurant,
+    reception,
+    printer,
+    outdoor_sports,
+    other_amenities,
+    mineral_water,
+    Luggage_storage,
+    luggage_assistance,
+    lounge,
+    library,
+    laundry,
+    LAN,
+    kitchenette,
+    kids_play,
+    kids_club,
+    jacuzzi,
+    Indoor_games,
+    housekeeping,
+    gym,
+    geyser,
+    firstAidService,
+    fire,
+    fax,
+    EVCharging,
+    Entertainment,
+    ConferenceRoom,
+    Closet,
+    Dental_kit,
+    Iron,
+    mini_fridge,
+}
+
+export const facilityIcons = {
+    "AC": amenities.AC,
+    "Air Conditioning": amenities.AC,
+    "Air Conditioning (Centralized)": amenities.AC,
+    "WiFi": amenities.free_wifi,
+    "Free WiFi": amenities.free_wifi,
+    "Free WiFi(Free - Speed Suitable for working)": amenities.free_wifi,
+    "Bakery": amenities.Bakery,
+    "Balcony/Terrace": amenities.Balcony,
+    "Balcony": amenities.Balcony,
+    "Terrace": amenities.Balcony,
+    "Banquet": amenities.Banquet,
+    "Bonfire": amenities.Bornfire,
+    "Bonfire (Paid)": amenities.Bornfire,
+    "Coffee Shop (Limited Hours)": amenities.cafe,
+    "Cafe (Limited Hours)": amenities.cafe,
+    "Cafe": amenities.cafe,
+    "CCTV": amenities.cctv,
+    "Private Pool": amenities.swimming_pool,
+    "Private Swimming Pool": amenities.swimming_pool,
+    "Swimming Pool": amenities.swimming_pool,
+    "Swimming Pool (Infinity Pool)": amenities.swimming_pool,
+    "Private Dining Area": amenities.dining_area,
+    "Dining Area": amenities.dining_area,
+    "Private Living Room": amenities.living_room,
+    "Living Room": amenities.living_room,
+    "Private Living Room": amenities.living_room,
+    "Living Room": amenities.living_room,
+    "Parking": amenities.parking,
+    "Free Parking (Free - Valet)": amenities.parking,
+    "Onsite Parking is available": amenities.parking,
+    "Parking available for free": amenities.parking,
+    "Wheelchair (Paid)": amenities.wheelchair,
+    "Wheelchair accessible": amenities.wheelchair,
+    "Wheelchair (Free)": amenities.wheelchair,
+    "Hot & Cold Water": amenities.water,
+    "TV": amenities.tv,
+    "Toiletries": amenities.toiletries,
+    "Telephone": amenities.telephone,
+    "Smoking Rooms": amenities.smoking_room,
+    "Smoking Rooms": amenities.smoking_room,
+    "Spa": amenities.spa,
+    "Room Service": amenities.room_service,
+    "Restaurant": amenities.restaurant,
+    "Reception": amenities.reception,
+    "Printer": amenities.printer,
+    "Outdoor Sports": amenities.outdoor_sports,
+    "Other_Amenities": amenities.other_amenities,
+    "Mineral Water": amenities.mineral_water,
+    "Luggage Storage": amenities.Luggage_storage,
+    "Luggage Assistance": amenities.luggage_assistance,
+    "Lounge": amenities.lounge,
+    "Library": amenities.library,
+    "Laundry": amenities.laundry,
+    "LAN": amenities.LAN,
+    "Kitchenette": amenities.kitchenette,
+    "Kids Play Area": amenities.kids_play,
+    "Kids Club": amenities.kids_club,
+    "Jacuzzi": amenities.jacuzzi,
+    "Indoor Games": amenities.Indoor_games,
+    "Housekeeping": amenities.housekeeping,
+    "Gym": amenities.gym,
+    "Geyser/Water Heater": amenities.geyser,
+    "Geyser": amenities.geyser,
+    "Water Heater": amenities.geyser,
+    "First-aid Services": amenities.firstAidService,
+    "Fire Extinguishers": amenities.fire,
+    "Fax Service": amenities.fax,
+    "EV Charging Station": amenities.EVCharging,
+    "Entertainment": amenities.Entertainment,
+    "Conference Room": amenities.ConferenceRoom,
+    "Closet": amenities.Closet,
+    "Dental Kit": amenities.Dental_kit,
+    "Iron/Ironing Board": amenities.Iron,
+    "Mini Fridge": amenities.mini_fridge,
+};
+
+
+
 export const assets = {
     strawberry1,
     strawberry3,
@@ -110,13 +294,6 @@ export const testimonials = [
 ];
 
 // Facility Icon
-export const facilityIcons = {
-    "Free WiFi": assets.freeWifiIcon,
-    "Free Breakfast": assets.freeBreakfastIcon,
-    "Room Service": assets.roomServiceIcon,
-    "Mountain View": assets.mountainIcon,
-    "Pool Access": assets.poolIcon,
-};
 
 // // For Room Details Page
 // export const roomCommonData = [

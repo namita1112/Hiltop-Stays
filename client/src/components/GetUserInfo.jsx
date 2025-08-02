@@ -19,24 +19,33 @@ const GetUserInfo = ({ hotelId, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const message = `Hello, you have a new callback request for ${hotelId.hotelName} hotel.
+        const message = `Hello, you have a new callback request for hotel - ${hotelId.hotelName}.
 
         Name: ${form.name}
         Contact Number: ${form.mobile}
 
-        ${form.name} is interested in ${hotelId.hotelName} hotel. Please reach out to them as soon as possible to assist with their booking.`;
+        ${form.name} is interested in ${hotelId.hotelName} hotel. Please reach out to them as soon as possible to assist with their booking.
+        
+        Please Find the Hotel Owner Details for pricing:
+        Hotel Name:  ${hotelId.hotelName} 
+        Hotel Owner Name: ${hotelId.owner} 
+        Hotel Owner Contact: ${hotelId.ownerContact}
+        `;
 
         const ownerPhoneNumber = "918097809705"; // hotel owner's WhatsApp number (with country code, no +)
-
+        const hotelName = hotelId.hotelName;
         try {
-            const response = await fetch("https://api.hiltopstay.com/api/send-message", {
+          const API_URL = import.meta.env.VITE_ENV_MODE === "local"
+                    ? "http://localhost:5000/api/send-message"
+                    : "https://api.hiltopstay.com/api/send-message";
+            const response = await fetch(API_URL, {
             // const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/send-message`, {  // Adjust URL as needed
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    to: ownerPhoneNumber,
+                    hotelName: hotelName,
                     message: message,
                 }),
             });
@@ -44,7 +53,7 @@ const GetUserInfo = ({ hotelId, onClose }) => {
             const data = await response.json();
 
             if (response.ok) {
-            alert("Message sent successfully via WhatsApp!");
+            alert("Message sent successfully!");
             onClose();
             } else {
             alert(`Failed to send message: ${data.error}`);
@@ -61,7 +70,7 @@ const GetUserInfo = ({ hotelId, onClose }) => {
         <button className="absolute top-2 right-3 text-xl cursor-pointer" onClick={onClose}> <IoCloseOutline/></button>
         <form className="w-full" onSubmit={handleSubmit}>
           <h2 className="text-lg font-semibold mb-4">Request a Callback</h2>
-
+          <p className='text-sm pb-2'>Want more info? Share your name and number to get a quick call from the property owner!</p>
           <div className="mb-4">
             <label htmlFor="name" className="block text-sm text-gray-700 mb-1">Your Name</label>
             <input
