@@ -11,6 +11,8 @@ const allowedOrigins = [
   'https://mahabaleshwar.hiltopstay.com',
 ];
 
+let connectedDB = null;
+
 if (process.env.ENV_MODE === "local") {
   // Allow all origins in development
   app.use(cors());
@@ -32,8 +34,18 @@ if (process.env.ENV_MODE === "local") {
 
 app.use(express.json());
 
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then((conn) => {
+    connectedDB = conn.connection.name;
+    console.log(`✅ MongoDB Connected to: ${conn.connection.name}`);
+    app.listen(5000, () => console.log("Server running on http://localhost:5000"));
+  })
+.catch((err) => console.error(err));
+
 app.get("/", (req, res) => {
-  res.send("API working fine 🚀");
+  res.send(`API working fine 🚀 - Connected DB: ${connectedDB || 'Not connected'}`);
+  // res.send("API working fine 🚀");
 });
 
 const hotelRoutes = require("./routes/hotelRoutes");
@@ -44,10 +56,4 @@ app.use("/api", hotelRoutes);
 app.use("/api", roomRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/booking", bookingRoutes);
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then((conn) => {
-    console.log(`✅ MongoDB Connected to: ${conn.connection.name}`);
-    app.listen(5000, () => console.log("Server running on http://localhost:5000"));
-  })
-  .catch((err) => console.error(err));
+
