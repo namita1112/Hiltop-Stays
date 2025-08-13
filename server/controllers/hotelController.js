@@ -16,33 +16,48 @@ exports.uploadMiddleware = upload.array("images", 100);
 // Add New Hotel
 exports.createHotel = async (req, res) => {
   // try {
-    const imageUrls = [];
+    // const imageUrls = [];
 
-    for (let file of req.files) {
-      const streamUpload = (fileBuffer) => {
-        return new Promise((resolve, reject) => {
-          const stream = cloudinary.uploader.upload_stream(
-            { folder: "Hiltop_Stays" },
-            (error, result) => {
-              if (result) {
-                resolve(result);
-              } else {
-                reject(error);
-              }
-            }
-          );
-          streamifier.createReadStream(fileBuffer).pipe(stream);
-        });
-      };
+    // for (let file of req.files) {
+    //   const streamUpload = (fileBuffer) => {
+    //     return new Promise((resolve, reject) => {
+    //       const stream = cloudinary.uploader.upload_stream(
+    //         { folder: "Hiltop_Stays" },
+    //         (error, result) => {
+    //           if (result) {
+    //             resolve(result);
+    //           } else {
+    //             reject(error);
+    //           }
+    //         }
+    //       );
+    //       streamifier.createReadStream(fileBuffer).pipe(stream);
+    //     });
+    //   };
 
-      const result = await streamUpload(file.buffer);
-      imageUrls.push(result.secure_url);
-    }
+    //   const result = await streamUpload(file.buffer);
+    //   imageUrls.push(result.secure_url);
+    // }
+
+    const uploadPromises = req.files.map(file => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "Hiltop_Stays" },
+          (error, result) => {
+            if (result) resolve(result.secure_url);
+            else reject(error);
+          }
+        );
+        streamifier.createReadStream(file.buffer).pipe(stream);
+      });
+    });
+
+    const imageUrls = await Promise.all(uploadPromises);
     // console.log(req.body);
-    console.log("description:", req.body.description);
-    console.log("hotelRule:", req.body.hotelRule);
-    console.log("amenities:", req.body.amenities);
-    console.log("availableDates:", req.body.availableDates);
+    // console.log("description:", req.body.description);
+    // console.log("hotelRule:", req.body.hotelRule);
+    // console.log("amenities:", req.body.amenities);
+    // console.log("availableDates:", req.body.availableDates);
     const hotel = new Hotel({
       hotelName: req.body.hotelName,
       title: req.body.title,

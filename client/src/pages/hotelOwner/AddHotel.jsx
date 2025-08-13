@@ -250,12 +250,12 @@ const AddHotel = () => {
         }
         // console.log(typeof descriptionList);
 
-        for (let [key, val] of formData.entries()) {
-            console.log(key,":", val);
-        }
+        // for (let [key, val] of formData.entries()) {
+        //     console.log(key,":", val);
+        // }
 
         // try {
-        console.log("VITE_BACKEND_URL :",`${import.meta.env.VITE_API_URL}`);
+        // console.log("VITE_BACKEND_URL :",`${import.meta.env.VITE_API_URL}`);
         // const BASE = import.meta.env.VITE_API_URL.replace(/\/$/, "");
         const API_URL = import.meta.env.VITE_ENV_MODE === "local"
                     ? "http://localhost:5000/api/hotels"
