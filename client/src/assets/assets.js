@@ -53,7 +53,7 @@ import Bakery from "./bakery.png";
 import Balcony from "./balcony_terrace.png";
 import Banquet from "./banquet.png";
 import Bornfire from "./bornfire.png";
-import cafe from "./cafe.png";
+import cafe from "./Cafe.png";
 import cctv from "./CCTV.png";
 import swimming_pool from "./private_swimming_pool.png";
 import dining_area from "./private_dining_area.png";
