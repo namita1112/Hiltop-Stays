@@ -101,10 +101,10 @@ const SearchForm = ({ initialData }) => {
                     value={destination || 'Mahabaleshwar'}
                     onChange={(e) => setSearchData((prev) => ({ ...prev, destination: e.target.value }))}
                     // onChange={(e) => setDestination(e.target.value)}
-                    onFocus={() => setOpenDestination(true)}
+                    // onFocus={() => setOpenDestination(true)}
                 />
 
-                {openDestination && (
+                {/* {openDestination && (
                     <div className="absolute top-full mt-2 w-64 bg-white border border-gray-300 rounded shadow z-30">
                     <div className="p-2 text-sm text-gray-600">Recent Searches</div>
                     <ul className="text-sm">
@@ -117,7 +117,7 @@ const SearchForm = ({ initialData }) => {
                         <li className="p-2 hover:bg-gray-100 cursor-pointer"><TrendingUpIcon style={{ fontSize: 24, color: '#1f1f1f' }} /> mahabaleshwar</li>
                     </ul>
                     </div>
-                )}
+                )} */}
             </div>
 
             {/* Date Range Picker */}
