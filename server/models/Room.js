@@ -41,11 +41,11 @@ const roomSchema = new mongoose.Schema({
     availableDates: [{
         from: {
         type: Date,
-        required: true
+        // required: true
         },
         to: {
         type: Date,
-        required: true
+        // required: true
         }
     }]
 });

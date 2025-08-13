@@ -66,6 +66,9 @@ exports.createHotel = async (req, res) => {
       checkIn: req.body.checkIn,
       checkOut: req.body.checkOut,
       maxAdults: parseInt(req.body.maxAdults),
+      entirePropertyBasePrice: parseInt(req.body.entirePropertyBasePrice),
+      entirePropertyPrice: parseInt(req.body.entirePropertyPrice),
+      // bookedDates: JSON.parse(req.body.availableDates),
     });
 
     await hotel.save();

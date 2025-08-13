@@ -7,6 +7,7 @@ const Sidebar = () => {
     const sideBarIcons = [
         {name: "Dashboard", path: "/owner", icon:<MdOutlineDashboardCustomize />},
         {name: "Add Hotel", path: "/owner/add-hotel", icon:<MdDomainAdd />},
+        {name: "Add Room", path: "/owner/add-room", icon:<MdDomainAdd />},
         {name: "All Hotels", path: "/owner/hotels", icon:<IoIosList />},
     ]
     return (

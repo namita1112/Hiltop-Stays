@@ -95,12 +95,16 @@ const hotelSchema = new mongoose.Schema({
     },
     entirePropertyBasePrice: {
         type: Number,
-        required: function () { return this.isEntireProperty === true; }
+        required: function () {
+            return this.isEntireProperty === true;
+        },
     },
     entirePropertyPrice: {
         type: Number,
-        required: function () { return this.isEntireProperty === true; }
-    }
+        required: function () {
+            return this.isEntireProperty === true;
+        },
+    },
 });
 
 module.exports = mongoose.model("Hotel", hotelSchema);
