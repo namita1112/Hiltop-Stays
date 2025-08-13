@@ -46,7 +46,8 @@ app.use("/api/payment", paymentRoutes);
 app.use("/api/booking", bookingRoutes);
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {
+  .then((conn) => {
+    console.log(`✅ MongoDB Connected to: ${conn.connection.name}`);
     app.listen(5000, () => console.log("Server running on http://localhost:5000"));
   })
   .catch((err) => console.error(err));
