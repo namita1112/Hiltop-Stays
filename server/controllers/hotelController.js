@@ -11,7 +11,7 @@ const upload = multer({ storage: storage });
 //  const upload = multer({ dest: "uploads/" });
 
 // exports.uploadMiddleware = upload.single("image");
-exports.uploadMiddleware = upload.array("images", 30);
+exports.uploadMiddleware = upload.array("images", 100);
 
 // Add New Hotel
 exports.createHotel = async (req, res) => {
