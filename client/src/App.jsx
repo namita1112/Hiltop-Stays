@@ -13,6 +13,7 @@ import BookingReview from './pages/BookingReview';
 import PaymentPage from './pages/PaymentPage';
 import SearchedHotels from './pages/SearchedHotels';
 import AddRoom from './pages/hotelOwner/AddRoom';
+import HotelDetailView from './pages/HotelDetailView';
 // import HotelReg from './components/HotelReg';
 const App = () => {
   const location = useLocation();
@@ -28,7 +29,8 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/hotels' element={<AllHotels />} />
           <Route path='/hotelsSearch' element={<SearchedHotels />} />
-          <Route path='/hotels/:id' element={<HotelDetails />} />
+          {/* <Route path='/hotels/:id' element={<HotelDetails />} /> */}
+          <Route path='/hotels/:id' element={<HotelDetailView />} />
           <Route path='/hotels/booking/:id' element={<BookingReview />} />
           <Route path="/payment" element={<PaymentPage />} />
           <Route path='/owner' element={<Layout />}>
