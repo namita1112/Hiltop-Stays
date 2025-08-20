@@ -396,7 +396,24 @@ const HotelDetailView = () => {
                                     </span>
                                 </div>
                             </div>
-                            <button onClick={() => {navigate(`/hotels/booking/${hotel._id}`, { state: { searchData } }); scrollTo(0,0)}}  className="w-full bg-blue-600 text-white py-2 mt-3 rounded-md hover:bg-blue-700 transition-all cursor-pointer">
+                            <button  
+                                onClick={() => {
+                                    const startDate = new Date(searchData?.date?.[0]?.startDate);
+                                    const endDate = new Date(searchData?.date?.[0]?.endDate);
+
+                                    // Convert both to YYYY-MM-DD for accurate comparison
+                                    const formatDate = (date) =>
+                                    date.toISOString().split("T")[0];
+
+                                    if (formatDate(startDate) === formatDate(endDate)) {
+                                    alert("Please select both Check-in and Check-out dates before proceeding.");
+                                    return;
+                                    }
+
+                                    navigate(`/hotels/booking/${hotel._id}`, { state: { searchData } });
+                                    scrollTo(0, 0);
+                                }}
+                                className="w-full bg-blue-600 text-white py-2 mt-3 rounded-md hover:bg-blue-700 transition-all cursor-pointer">
                                 BOOK THIS NOW
                             </button>
                         </div>
