@@ -153,7 +153,7 @@ const HotelDetailView = () => {
                             {/* Fullscreen Modal with swipe */}
                             {currentIndex !== null && (
                                 <div
-                                className="fixed inset-0 bg-black/70 bg-opacity-95 flex items-center justify-center z-50"
+                                className="fixed inset-0 bg-black/90 bg-opacity-95 flex items-center justify-center z-50"
                                 onTouchStart={handleTouchStart}
                                 onTouchMove={handleTouchMove}
                                 onTouchEnd={handleTouchEnd}
