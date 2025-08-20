@@ -88,7 +88,7 @@ const HotelDetails = () => {
                     <SearchForm initialData={searchData} />
                 </div>
             </div>
-            <div className='py-10 md:py-15 px-4 md:px-10 lg:px-20 xl:px-15'>
+            <div className='py-10 md:py-15 px-3 md:px-10 lg:px-20 xl:px-15'>
                 {/* Hotel Details */}
                 {/* py-20 md:py-30 px-4 md:px-15 lg:px-22 xl:px-30 */}
                 <div className='flex flex-col md:flex-row items-start md:items-center gap-2'>
@@ -114,14 +114,14 @@ const HotelDetails = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
                 {/* Mobile View: Swipeable Carousel */}
                 <div className="block md:hidden overflow-x-auto">
-                    <div className="flex space-x-4 snap-x snap-mandatory">
+                    <div className="flex space-x-2 snap-x snap-mandatory">
                     {hotel.images.map((img, index) => (
                         <img
                         key={index}
                         src={img}
                         alt={`Image ${index + 1}`}
-                        className="w-full flex-shrink-0 snap-start h-[300px] object-cover rounded-xl"
-                        style={{ minWidth: '100%' }}
+                        className="w-full flex-shrink-0 snap-start h-[400px] object-cover"
+                        // style={{ minWidth: '100%' }}
                         />
                     ))}
                     </div>
