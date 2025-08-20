@@ -12,6 +12,7 @@ import GetUserInfo from '../components/GetUserInfo';
 import SearchForm from '../components/SearchForm';
 import ShowAmenities from '../components/ShowAmenities';
 import { useSearch } from '../context/SearchContext';
+import { IoClose } from "react-icons/io5";
 const HotelDetailView = () => {
     const navigate = useNavigate();
     const {id} = useParams();
@@ -25,6 +26,37 @@ const HotelDetailView = () => {
     const [selectedHotelId, setSelectedHotelId] = useState(null);
     const [showAmenitiesModal, setShowAmenitiesModal] = useState(false);
     const { searchData } = useSearch();
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(null);
+    const [touchStart, setTouchStart] = useState(0);
+    const [touchEnd, setTouchEnd] = useState(0);
+    const minSwipeDistance = 50;
+    const handleTouchStart = (e) => {
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const handleTouchMove = (e) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const handleTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+
+        const distance = touchStart - touchEnd;
+        if (distance > minSwipeDistance) {
+        // swipe left → next image
+        setCurrentIndex((prev) =>
+            prev < hotel.images.length - 1 ? prev + 1 : prev
+        );
+        }
+        if (distance < -minSwipeDistance) {
+        // swipe right → prev image
+        setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev));
+        }
+        setTouchStart(0);
+        setTouchEnd(0);
+    };
+
 
     const handleOpenModal = (hotelId) => {
         setSelectedHotelId(hotelId);
@@ -102,8 +134,53 @@ const HotelDetailView = () => {
             {/* Hotel Details Section */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
                 {/* Image Section Start */}
+                        <div>
+                            {/* Mobile swipeable preview */}
+                            <div className="order-1 block md:hidden overflow-x-auto">
+                                <div className="flex space-x-2 snap-x snap-mandatory">
+                                {hotel.images.map((img, index) => (
+                                    <img
+                                    key={index}
+                                    src={img}
+                                    alt={`Image ${index + 1}`}
+                                    className="w-full flex-shrink-0 snap-start h-[400px] object-cover rounded-s cursor-pointer"
+                                    onClick={() => setCurrentIndex(index)} // 👈 open modal with index
+                                    />
+                                ))}
+                                </div>
+                            </div>
+
+                            {/* Fullscreen Modal with swipe */}
+                            {currentIndex !== null && (
+                                <div
+                                className="fixed inset-0 bg-black/70 bg-opacity-95 flex items-center justify-center z-50"
+                                onTouchStart={handleTouchStart}
+                                onTouchMove={handleTouchMove}
+                                onTouchEnd={handleTouchEnd}
+                                >
+                                {/* Close Button */}
+                                <button
+                                    onClick={() => setCurrentIndex(null)}
+                                    className="absolute top-4 right-4 text-white text-3xl"
+                                >
+                                    <IoClose />
+                                </button>
+
+                                {/* Fullscreen Image */}
+                                <img
+                                    src={hotel.images[currentIndex]}
+                                    alt="Selected"
+                                    className="max-h-[100%] max-w-[98%] object-contain rounded-lg transition-transform duration-300"
+                                />
+                                </div>
+                            )}
+                        </div>  
+
+
+
+
                     {/* Mobile View: Swipeable Carousel Start*/}
-                    <div className="order-1 block md:hidden overflow-x-auto">
+                    {/* <div className="order-1 block md:hidden overflow-x-auto">
                         <div className="flex space-x-2 snap-x snap-mandatory">
                         {hotel.images.map((img, index) => (
                             <img
@@ -115,7 +192,10 @@ const HotelDetailView = () => {
                             />
                         ))}
                         </div>
-                    </div>
+                    </div> */}
+
+
+
                     {/* Mobile View: Swipeable Carousel End*/}
                     
                     {/* Mobile View - Room Info for Villa, Mansion, Palace Start */}
@@ -412,8 +492,9 @@ const HotelDetailView = () => {
 
                                     navigate(`/hotels/booking/${hotel._id}`, { state: { searchData } });
                                     scrollTo(0, 0);
-                                }}
-                                className="w-full bg-blue-600 text-white py-2 mt-3 rounded-md hover:bg-blue-700 transition-all cursor-pointer">
+                                }}  
+                                className="w-full bg-blue-600 text-white py-2 mt-3 rounded-md hover:bg-blue-700 transition-all cursor-pointer"
+                                >
                                 BOOK THIS NOW
                             </button>
                         </div>
