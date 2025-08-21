@@ -144,7 +144,7 @@ const BookingReview = () => {
   if (!hotel) return <div>Loading...</div>;
 
   return (
-    <div className="pt-25 pr-7 pl-7 bg-gray-100 min-h-screen">
+    <div className="pt-25 pr-2 pl-2 bg-gray-100 min-h-screen">
       {/* Heading */}
       <h2 className="text-2xl font-semibold mb-4">Review your Booking</h2>
       {/* Mobile Total Price Header */}

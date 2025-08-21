@@ -50,6 +50,8 @@ const SearchedHotels = () => {
         fetchHotels();
     }, [searchData]);
 
+    console.log(searchData);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -59,7 +61,10 @@ const SearchedHotels = () => {
         
         <div className='items-center pt-20 md:px-3 lg:px-10 bg-slate-50 py-7'>
             <SearchForm initialData={searchData} />
-            <h1 className='mt-5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold font-playfair break-words w-full max-w-3xl'>Showing Properties in {searchData?.destination}</h1>
+            <h1 className='mt-5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold font-playfair break-words w-full max-w-3xl'>
+                Showing Properties in {searchData?.destination && searchData?.destination.trim() !== "" ? searchData.destination : "Mahabaleshwar"}
+            </h1>
+
 
             <div className="flex flex-wrap items-stretch pt-20 px-2 md:px-2 bg-slate-50 py-7 gap-y-6 gap-x-4 justify-start">
             {/* <div className="flex flex-wrap items-center pt-20 px-4 md:px-10 bg-slate-50 py-7 gap-y-6 gap-x-4 justify-start"> */}

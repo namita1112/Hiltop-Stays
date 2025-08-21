@@ -13,6 +13,7 @@ import SearchForm from '../components/SearchForm';
 import ShowAmenities from '../components/ShowAmenities';
 import { useSearch } from '../context/SearchContext';
 import { IoClose } from "react-icons/io5";
+import { FaAngleRight } from "react-icons/fa6";
 const HotelDetailView = () => {
     const navigate = useNavigate();
     const {id} = useParams();
@@ -134,7 +135,7 @@ const HotelDetailView = () => {
             {/* Hotel Details Section */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
                 {/* Image Section Start */}
-                        <div>
+                        <div className="md:hidden">
                             {/* Mobile swipeable preview */}
                             <div className="order-1 block md:hidden overflow-x-auto">
                                 <div className="flex space-x-2 snap-x snap-mandatory">
@@ -143,7 +144,7 @@ const HotelDetailView = () => {
                                     key={index}
                                     src={img}
                                     alt={`Image ${index + 1}`}
-                                    className="w-full flex-shrink-0 snap-start h-[400px] object-cover rounded-s cursor-pointer"
+                                    className="w-full flex-shrink-0 snap-start h-[400px] object-cover rounded-xl cursor-pointer"
                                     onClick={() => setCurrentIndex(index)} // 👈 open modal with index
                                     />
                                 ))}
@@ -153,7 +154,7 @@ const HotelDetailView = () => {
                             {/* Fullscreen Modal with swipe */}
                             {currentIndex !== null && (
                                 <div
-                                className="fixed inset-0 bg-black/90 bg-opacity-95 flex items-center justify-center z-50"
+                                className="fixed inset-0 bg-white/100 bg-opacity-95 flex items-center justify-center z-50"
                                 onTouchStart={handleTouchStart}
                                 onTouchMove={handleTouchMove}
                                 onTouchEnd={handleTouchEnd}
@@ -161,7 +162,7 @@ const HotelDetailView = () => {
                                 {/* Close Button */}
                                 <button
                                     onClick={() => setCurrentIndex(null)}
-                                    className="absolute top-4 right-4 text-white text-3xl"
+                                    className="absolute top-4 right-4 text-black text-3xl"
                                 >
                                     <IoClose />
                                 </button>
@@ -239,9 +240,18 @@ const HotelDetailView = () => {
                     <div className="order-3 md:hidden overflow-x-auto">
                         {/* Title + Description */}
                         <div>
-                            <p className='text-2xl'>{hotel.title}</p>
-                            <div className="my-5">
-                                <div
+                            <div className="my-2 rounded-xl bg-white shadow-md px-1 py-1">
+                                <p className='text-xl'>About This Property</p>
+                                <p className='text-gray-700'>
+                                    {hotel.title}
+                                </p>
+                                <div className='mt-2 flex items-center justify-between'>
+                                    <p>Property Highlights</p>
+                                    <FaAngleRight />
+                                </div>
+
+                                {/* <div
+
                                     className={`text-gray-500 text-xl relative overflow-hidden transition-all ${
                                         expanded ? "" : "line-clamp-5"
                                     }`}
@@ -265,13 +275,13 @@ const HotelDetailView = () => {
                                             </div>
                                         ))
                                     }
-                                </div>
-                                <button
+                                </div> */}
+                                {/* <button
                                     onClick={() => setExpanded(!expanded)}
                                     className="text-blue-600 font-medium mt-2 cursor-pointer"
                                 >
                                     {expanded ? "Show less" : "Show more..."}
-                                </button>
+                                </button> */}
                             </div>
 
                         </div>
