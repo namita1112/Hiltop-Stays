@@ -31,6 +31,7 @@ const HotelDetailView = () => {
     const [currentIndex, setCurrentIndex] = useState(null);
     const [touchStart, setTouchStart] = useState(0);
     const [touchEnd, setTouchEnd] = useState(0);
+    const [isOpen, setIsOpen] = useState(false);
     const minSwipeDistance = 50;
     const handleTouchStart = (e) => {
         setTouchStart(e.targetTouches[0].clientX);
@@ -67,6 +68,8 @@ const HotelDetailView = () => {
         setSelectedHotelId(hotelId);
         setShowAmenitiesModal(true);
     };
+
+
 
     const handleContactClick = () => {
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -245,10 +248,70 @@ const HotelDetailView = () => {
                                 <p className='text-gray-700'>
                                     {hotel.title}
                                 </p>
-                                <div className='mt-2 flex items-center justify-between'>
+                                <div className='mt-2 flex items-center justify-between' onClick={() => setIsOpen(true)}>
                                     <p>Property Highlights</p>
-                                    <FaAngleRight />
+                                    <FaAngleRight className='text-blue-700' />
                                 </div>
+
+                                <div className='mt-5 border-t border-gray-300'>
+                                    <h1 className='text-xl md:text-xl font-playfair'>Amenities</h1>
+                                    <div className='flex flex-wrap items-center mt-3 mb-6 gap-4'>
+                                        {hotel.amenities.slice(0,4).map((item, index) => (
+                                            <div key={index} className='flex items-center gap-1 px-3 py-2'>
+                                                <img src={facilityIcons[item] || facilityIcons.Other_Amenities} alt={item} className='w-5 h-5'></img>
+                                                <p className='text-s text-gray-600'>{item}</p>
+                                            </div>
+                                        ))}
+                                        <button
+                                            onClick={() => OpenModal(hotel)}
+                                            className="text-blue-600 font-medium cursor-pointer"
+                                        >
+                                            +More Amenities
+                                        </button>
+                                    </div>
+                                </div>
+
+
+
+                                  {isOpen && (
+                                        <div className="fixed inset-0 bg-white bg-opacity-95 flex flex-col z-50 p-6">
+                                            {/* Header */}
+                                            <div className="flex justify-between items-center mb-4">
+                                                <h2 className="text-xl font-bold">{hotel.hotelName}</h2>
+                                                <button
+                                                onClick={() => setIsOpen(false)}
+                                                className="text-3xl text-gray-700 hover:text-black"
+                                                >
+                                                <IoClose />
+                                                </button>
+                                            </div>
+
+                                            {/* Description */}
+                                            <div className="overflow-y-auto">
+                                                {Array.isArray(hotel.description) &&
+                                                        hotel.description.map((item, index) => (
+                                                            <div key={index} className="mb-4">
+                                                            <h3 className="text-lg font-semibold text-black">{item.title}</h3>
+                                                            {["Property Highlights", "Room details and Amenities"].includes(item.title) ? (
+                                                                <ul className="list-disc list-inside text-gray-600">
+                                                                {item.desc
+                                                                    .split(". ")
+                                                                    .filter(sentence => sentence.trim() !== "")
+                                                                    .map((sentence, i) => (
+                                                                    <li key={i}>{sentence.trim().replace(/\.$/, "")}.</li>
+                                                                    ))}
+                                                                </ul>
+                                                            ) : (
+                                                                <p className="text-gray-600">{item.desc}</p>
+                                                            )}
+                                                            </div>
+                                                        ))
+                                                    }
+                                            
+                                            </div>
+
+                                        </div>
+                                    )}
 
                                 {/* <div
 
@@ -425,7 +488,7 @@ const HotelDetailView = () => {
             {/* Room Highlights Start */}
                 <div className='flex flex-col md:flex-row md:justify-between mt-8'>
                     {/* Amenities Start */}
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col hidden md:block'>
                         <h1 className='text-3xl md:text-4xl font-playfair'>Property Highlights</h1>
                         <div className='flex flex-wrap items-center mt-3 mb-6 gap-4'>
                             {hotel.amenities.slice(0,6).map((item, index) => (
