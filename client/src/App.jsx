@@ -14,7 +14,7 @@ import PaymentPage from './pages/PaymentPage';
 import SearchedHotels from './pages/SearchedHotels';
 import AddRoom from './pages/hotelOwner/AddRoom';
 import HotelDetailView from './pages/HotelDetailView';
-import About from './pages/about';
+import About from "./pages/About";
 // import HotelReg from './components/HotelReg';
 const App = () => {
   const location = useLocation();
