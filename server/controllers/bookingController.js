@@ -106,7 +106,7 @@ exports.confirmBooking = async (req, res) => {
    try {
     // 1. Generate PDF
     const pdfBuffer = await generateInvoicePDF(guestDetails, bookingDetails);
-
+    // console.log("Guest Details: ",guestDetails);
     // 2. Send Email with invoice PDF attached
     await sendEmailWithAttachment({
       to: guestDetails.email,
