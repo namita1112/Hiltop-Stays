@@ -82,7 +82,7 @@ const SearchForm = ({ initialData }) => {
         if (location.pathname.startsWith("/hotels/")) {
             console.log("Stay on hotel page:", searchData);
             window.scrollTo({
-                top: 1500,   // adjust this value depending on how far you want to scroll
+                top: 1300,   // adjust this value depending on how far you want to scroll
                 behavior: "smooth"
             });
         }else{
