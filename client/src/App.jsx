@@ -14,6 +14,7 @@ import PaymentPage from './pages/PaymentPage';
 import SearchedHotels from './pages/SearchedHotels';
 import AddRoom from './pages/hotelOwner/AddRoom';
 import HotelDetailView from './pages/HotelDetailView';
+import About from './pages/about';
 // import HotelReg from './components/HotelReg';
 const App = () => {
   const location = useLocation();
@@ -29,6 +30,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/hotels' element={<AllHotels />} />
           <Route path='/hotelsSearch' element={<SearchedHotels />} />
+          <Route path='/about' element={<About />} />
           {/* <Route path='/hotels/:id' element={<HotelDetails />} /> */}
           <Route path='/hotels/:id' element={<HotelDetailView />} />
           <Route path='/hotels/booking/:id' element={<BookingReview />} />
