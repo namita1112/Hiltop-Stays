@@ -8,7 +8,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { format } from 'date-fns';
 import { useState, useRef, useEffect } from 'react';
 import { useSearch } from '../context/SearchContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 const SearchForm = ({ initialData }) => {
     const dateRef = useRef();
     const optionsRef = useRef();
@@ -76,13 +76,18 @@ const SearchForm = ({ initialData }) => {
 
 
     const { destination, date, options } = searchData;
-
     const navigate = useNavigate();
+    const location = useLocation();
     const handleSearch = () => {
-        console.log(searchData);
-        //  to={'/hotels/' + hotel._id}
-        navigate('/hotelsSearch', { state: searchData });
-        // console.log(destination, date, options);
+        if (location.pathname.startsWith("/hotels/")) {
+            console.log("Stay on hotel page:", searchData);
+            window.scrollTo({
+                top: 1500,   // adjust this value depending on how far you want to scroll
+                behavior: "smooth"
+            });
+        }else{
+            navigate('/hotelsSearch', { state: searchData });
+        }
     };
 
     const [openDestination, setOpenDestination] = useState(false);
@@ -136,7 +141,14 @@ const SearchForm = ({ initialData }) => {
                 <div className="absolute top-20 z-50 left-1/2 transform -translate-x-1/2 max-w-sm w-[95vw] overflow-x-hidden">
                     <DateRange
                     editableDateInputs
-                    onChange={(item) => setSearchData((prev) => ({ ...prev, date: [item.selection] }))}
+                    onChange={(item) => {
+                        setSearchData((prev) => ({ ...prev, date: [item.selection] }));
+                        const { startDate, endDate } = item.selection;
+                        // ✅ Auto-close when endDate is chosen
+                        if (startDate && endDate && startDate.getTime() !== endDate.getTime()) {
+                            setOpenDate(false);
+                        }
+                    }}
                     // onChange={(item) => setDate([item.selection])}
                     moveRangeOnFirstSelection={false}
                     ranges={date}
